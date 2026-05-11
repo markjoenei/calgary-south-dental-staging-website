@@ -90,48 +90,185 @@ export default function MeetOurTeamPage() {
       />
 
       {/* ============================================================
-          INTRO STRIP
+          INTRO STRIP — Compassionate Care, Expert Hands
           ============================================================ */}
       <section
         id="meet-our-team"
-        className="w-full bg-white relative overflow-hidden"
-        style={{ paddingTop: "86.4px", paddingBottom: "40px" }}
+        className="w-full relative overflow-hidden"
+        style={{
+          paddingTop: "96px",
+          paddingBottom: "72px",
+          background:
+            "linear-gradient(180deg, #ffffff 0%, #fbf6f1 55%, #ffffff 100%)",
+        }}
       >
+        {/* Decorative accents */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="max-w-[1100px] mx-auto text-center"
-          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ top: -60, left: -120, zIndex: 0 }}
+          animate={{ rotate: [0, 6, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         >
-          <Eyebrow>The People Behind Your Smile</Eyebrow>
-          <h2
-            className="text-[#141f2e] uppercase"
-            style={{
-              fontFamily: "var(--font-montserrat), sans-serif",
-              fontSize: "clamp(28px, 3.5vw, 50px)",
-              fontWeight: 600,
-              lineHeight: "1.15",
-              letterSpacing: "2px",
-            }}
-          >
-            Compassionate Care, Expert Hands
-          </h2>
-          <p
-            className="mt-6 text-[#141f2e]/80 max-w-[820px] mx-auto"
-            style={{
-              fontFamily: "var(--font-poppins), sans-serif",
-              fontSize: "17px",
-              fontWeight: 400,
-              lineHeight: "29px",
-            }}
-          >
-            Our dentists combine years of experience with a warm, personal touch — caring for
-            patients of every age, every background, and every comfort level. Get to know the
-            doctors who&apos;ll be looking after your family&apos;s smile.
-          </p>
+          <OrganicBlob color="#279DB9" size={380} opacity={0.08} />
         </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none hidden md:block"
+          style={{ bottom: -40, right: -100, zIndex: 0 }}
+          animate={{ rotate: [0, -5, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <OrganicBlob color="#d8a986" size={320} opacity={0.18} />
+        </motion.div>
+        <div
+          aria-hidden="true"
+          className="absolute pointer-events-none hidden lg:block"
+          style={{ top: 80, right: 60, zIndex: 0 }}
+        >
+          <DotGrid rows={4} cols={6} color="#279DB9" opacity={0.22} />
+        </div>
+        <div
+          aria-hidden="true"
+          className="absolute pointer-events-none hidden lg:block"
+          style={{ bottom: 60, left: 60, zIndex: 0 }}
+        >
+          <DotGrid rows={3} cols={5} color="#d8a986" opacity={0.35} />
+        </div>
+
+        <div
+          className="relative max-w-[1180px] mx-auto"
+          style={{
+            paddingLeft: "clamp(20px, 5vw, 80px)",
+            paddingRight: "clamp(20px, 5vw, 80px)",
+            zIndex: 1,
+          }}
+        >
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="text-center"
+          >
+            <Eyebrow>The People Behind Your Smile</Eyebrow>
+            <h2
+              className="text-[#141f2e] uppercase mt-2"
+              style={{
+                fontFamily: "var(--font-montserrat), sans-serif",
+                fontSize: "clamp(30px, 3.8vw, 54px)",
+                fontWeight: 600,
+                lineHeight: "1.1",
+                letterSpacing: "2px",
+              }}
+            >
+              Compassionate Care,{" "}
+              <span
+                className="relative inline-block"
+                style={{ color: "#279DB9", fontStyle: "italic", fontWeight: 700 }}
+              >
+                Expert Hands
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute left-0 right-0"
+                  style={{
+                    bottom: "-6px",
+                    height: "3px",
+                    backgroundColor: "#d8a986",
+                    borderRadius: "2px",
+                    transformOrigin: "left center",
+                  }}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={viewportOnce}
+                  transition={{ duration: 0.9, delay: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
+                />
+              </span>
+            </h2>
+            <p
+              className="mt-7 text-[#141f2e]/80 max-w-[820px] mx-auto"
+              style={{
+                fontFamily: "var(--font-poppins), sans-serif",
+                fontSize: "17px",
+                fontWeight: 400,
+                lineHeight: "29px",
+              }}
+            >
+              Our dentists combine years of experience with a warm, personal touch — caring for
+              patients of every age, every background, and every comfort level. Get to know the
+              doctors who&apos;ll be looking after your family&apos;s smile.
+            </p>
+          </motion.div>
+
+          {/* Stat / trust cards */}
+          <motion.ul
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08, delayChildren: 0.25 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
+            style={{ listStyle: "none", padding: 0 }}
+          >
+            {[
+              { stat: "7", label: "Trusted Dentists" },
+              { stat: "30+", label: "Years Of Care" },
+              { stat: "All", label: "Ages Welcome" },
+              { stat: "Same-Day", label: "Emergencies" },
+            ].map((item) => (
+              <motion.li
+                key={item.label}
+                variants={fadeUp}
+                className="group relative flex flex-col items-center justify-center text-center transition-all duration-500"
+                style={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid rgba(20,31,46,0.08)",
+                  borderRadius: "16px",
+                  padding: "26px 18px",
+                  boxShadow: "0 12px 30px -22px rgba(20,31,46,0.25)",
+                }}
+                whileHover={{ y: -6 }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1/2 -translate-x-1/2"
+                  style={{
+                    top: "-2px",
+                    width: "44px",
+                    height: "3px",
+                    backgroundColor: "#279DB9",
+                    borderRadius: "0 0 4px 4px",
+                  }}
+                />
+                <span
+                  className="text-[#279DB9]"
+                  style={{
+                    fontFamily: "var(--font-montserrat), sans-serif",
+                    fontSize: "clamp(28px, 3vw, 38px)",
+                    fontWeight: 700,
+                    lineHeight: 1,
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {item.stat}
+                </span>
+                <span
+                  className="mt-2 uppercase text-[#141f2e]/75"
+                  style={{
+                    fontFamily: "var(--font-montserrat), sans-serif",
+                    fontSize: "11.5px",
+                    fontWeight: 600,
+                    letterSpacing: "2px",
+                  }}
+                >
+                  {item.label}
+                </span>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
       </section>
 
       {/* ============================================================
@@ -242,7 +379,7 @@ export default function MeetOurTeamPage() {
         </motion.div>
 
         <div
-          className="relative max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16"
+          className="relative max-w-[1100px] mx-auto"
           style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           <motion.div
@@ -250,26 +387,7 @@ export default function MeetOurTeamPage() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="flex-shrink-0 w-full md:w-auto group overflow-hidden"
-            style={{
-              borderRadius: "8px",
-              boxShadow: "0 20px 60px -20px rgba(20,31,46,0.25)",
-            }}
-          >
-            <img
-              src="/images/team/office-tour.jpg"
-              alt="Inside the Calgary South Dental office"
-              className="transition-transform duration-[800ms] ease-out group-hover:scale-105"
-              style={{ width: "620px", maxWidth: "100%", objectFit: "cover", display: "block" }}
-            />
-          </motion.div>
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            className="flex-1"
+            className="text-center flex flex-col items-center"
           >
             <Eyebrow color="#ffffff">Inside Our Clinic</Eyebrow>
             <h2
@@ -285,7 +403,7 @@ export default function MeetOurTeamPage() {
               Office Tour
             </h2>
             <p
-              className="mt-6 text-white"
+              className="mt-6 text-white max-w-[820px] mx-auto"
               style={{
                 fontFamily: "var(--font-poppins), sans-serif",
                 fontSize: "16px",
