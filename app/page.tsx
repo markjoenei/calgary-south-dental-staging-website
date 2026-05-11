@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "motion/react";
+import { PATIENTS_NAV, SERVICES_NAV } from "./services-data";
 
 // ============================================================
 // SHARED HELPERS
@@ -188,10 +189,18 @@ const testimonials = [
 // SERVICE CARD SUB-COMPONENT
 // ============================================================
 
-function ServiceCard({ image, title }: { image: string; title: string }) {
+function ServiceCard({
+  image,
+  title,
+  href = "#",
+}: {
+  image: string;
+  title: string;
+  href?: string;
+}) {
   return (
     <a
-      href="#"
+      href={href}
       className="group relative w-[294px] h-[440px] overflow-hidden flex-shrink-0 block"
     >
       <img
@@ -352,6 +361,275 @@ const NAV_ITEMS_WITH_CHEVRON = [
   "FOR PATIENTS",
 ];
 
+// About Us dropdown items — link to the real pages
+const ABOUT_SUBMENU = [
+  { label: "Meet Our Team", href: "/meet-our-team" },
+  { label: "Office Tour", href: "/meet-our-team#office-tour" },
+  { label: "Why Us", href: "/why-us" },
+];
+
+// ============================================================
+// DECORATIVE VECTOR ART — global accents across home page
+// Brand palette: #279DB9 teal · #d8a986 tan · #141f2e navy
+// All decorations are pointer-events: none and aria-hidden.
+// ============================================================
+
+function DotGrid({
+  rows = 6,
+  cols = 10,
+  color = "#d8a986",
+  size = 4,
+  gap = 18,
+  opacity = 0.55,
+}: {
+  rows?: number;
+  cols?: number;
+  color?: string;
+  size?: number;
+  gap?: number;
+  opacity?: number;
+}) {
+  const width = (cols - 1) * gap + size;
+  const height = (rows - 1) * gap + size;
+  return (
+    <svg
+      aria-hidden="true"
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      style={{ opacity, display: "block" }}
+    >
+      {Array.from({ length: rows }).flatMap((_, r) =>
+        Array.from({ length: cols }).map((_, c) => (
+          <circle
+            key={`${r}-${c}`}
+            cx={c * gap + size / 2}
+            cy={r * gap + size / 2}
+            r={size / 2}
+            fill={color}
+          />
+        ))
+      )}
+    </svg>
+  );
+}
+
+function WaveSwoosh({
+  color = "#279DB9",
+  width = 520,
+  height = 200,
+  stroke = 2,
+  opacity = 0.35,
+}: {
+  color?: string;
+  width?: number;
+  height?: number;
+  stroke?: number;
+  opacity?: number;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      width={width}
+      height={height}
+      viewBox="0 0 520 200"
+      fill="none"
+      style={{ opacity, display: "block" }}
+    >
+      <path
+        d="M0 130 Q 90 30 200 100 T 420 80 T 520 60"
+        stroke={color}
+        strokeWidth={stroke}
+        strokeLinecap="round"
+      />
+      <path
+        d="M0 160 Q 100 70 220 130 T 440 110 T 520 90"
+        stroke={color}
+        strokeWidth={stroke - 0.5}
+        strokeLinecap="round"
+        opacity={0.55}
+      />
+    </svg>
+  );
+}
+
+function OrganicBlob({
+  color = "#d8a986",
+  size = 420,
+  opacity = 0.18,
+}: {
+  color?: string;
+  size?: number;
+  opacity?: number;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      width={size}
+      height={size}
+      viewBox="0 0 200 200"
+      fill={color}
+      style={{ opacity, display: "block" }}
+    >
+      <path d="M44.3,-67.5C56.5,-58.3,64.7,-43.7,69.7,-28.7C74.7,-13.7,76.5,1.8,73.1,16.5C69.7,31.2,61,45.1,49.1,55.6C37.1,66.1,21.9,73.3,5.4,73C-11.1,72.7,-28.9,65,-43.4,53.7C-57.9,42.4,-69.1,27.6,-72.3,11.3C-75.5,-5,-70.8,-22.8,-61.3,-36.3C-51.8,-49.7,-37.5,-58.8,-22.7,-66.4C-7.9,-74,7.4,-80.1,21.9,-78.4C36.5,-76.6,50.4,-67,44.3,-67.5Z" transform="translate(100 100)" />
+    </svg>
+  );
+}
+
+function CircleRings({
+  color = "#279DB9",
+  size = 260,
+  rings = 4,
+  stroke = 1.2,
+  opacity = 0.35,
+}: {
+  color?: string;
+  size?: number;
+  rings?: number;
+  stroke?: number;
+  opacity?: number;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      fill="none"
+      style={{ opacity, display: "block" }}
+    >
+      {Array.from({ length: rings }).map((_, i) => (
+        <circle
+          key={i}
+          cx="50"
+          cy="50"
+          r={10 + i * (40 / rings)}
+          stroke={color}
+          strokeWidth={stroke}
+          strokeDasharray={i % 2 === 0 ? "0" : "3 5"}
+        />
+      ))}
+    </svg>
+  );
+}
+
+function SmileArc({
+  color = "#d8a986",
+  width = 320,
+  height = 120,
+  stroke = 3,
+  opacity = 0.4,
+}: {
+  color?: string;
+  width?: number;
+  height?: number;
+  stroke?: number;
+  opacity?: number;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      width={width}
+      height={height}
+      viewBox="0 0 320 120"
+      fill="none"
+      style={{ opacity, display: "block" }}
+    >
+      <path
+        d="M10 30 Q 160 130 310 30"
+        stroke={color}
+        strokeWidth={stroke}
+        strokeLinecap="round"
+      />
+      <circle cx="10" cy="30" r="5" fill={color} />
+      <circle cx="310" cy="30" r="5" fill={color} />
+    </svg>
+  );
+}
+
+// ============================================================
+// HOME NAV SUB-ITEM — supports an optional sub-flyout
+// ============================================================
+
+function HomeNavSubItem({
+  sub,
+}: {
+  sub: { label: string; href: string; submenu?: { label: string; href: string }[] };
+}) {
+  const [flyoutOpen, setFlyoutOpen] = useState(false);
+  const hasFlyout = !!sub.submenu && sub.submenu.length > 0;
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => hasFlyout && setFlyoutOpen(true)}
+      onMouseLeave={() => hasFlyout && setFlyoutOpen(false)}
+    >
+      <a
+        href={sub.href}
+        className="flex items-center justify-between px-5 py-2.5 text-white hover:text-[#279DB9] hover:bg-white/5 transition-colors duration-200"
+        style={{
+          fontFamily: "var(--font-poppins), sans-serif",
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.5px",
+        }}
+      >
+        <span>{sub.label}</span>
+        {hasFlyout && (
+          <span style={{ display: "inline-flex", marginLeft: "10px", opacity: 0.7 }}>
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        )}
+      </a>
+
+      {hasFlyout && (
+        <AnimatePresence>
+          {flyoutOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: -4 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -4 }}
+              transition={{ duration: 0.16, ease: [0.4, 0, 0.2, 1] }}
+              className="absolute left-full top-0 bg-[#0f0f0f] border border-[#279DB9]/30 shadow-2xl"
+              style={{
+                minWidth: "280px",
+                marginLeft: "4px",
+                borderRadius: "6px",
+                padding: "10px 0",
+              }}
+            >
+              {sub.submenu!.map((leaf) => (
+                <a
+                  key={leaf.label}
+                  href={leaf.href}
+                  className="block px-5 py-2.5 text-white hover:text-[#279DB9] hover:bg-white/5 transition-colors duration-200"
+                  style={{
+                    fontFamily: "var(--font-poppins), sans-serif",
+                    fontSize: "14px",
+                    fontWeight: 500,
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {leaf.label}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+}
+
 // ============================================================
 // MAIN PAGE COMPONENT
 // ============================================================
@@ -362,6 +640,8 @@ export default function HomePage() {
   const [direction, setDirection] = useState(1);
   const [showVerticalLabel, setShowVerticalLabel] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
 
   const { scrollY } = useScroll();
   const rawY = useTransform(scrollY, (v) => v * -0.08);
@@ -485,7 +765,7 @@ export default function HomePage() {
             {/* Right side — Book Online Here + mobile hamburger */}
             <div className="flex items-center gap-3">
               <a
-                href="#"
+                href="/contact-us"
                 className="hidden md:inline-flex items-center justify-center text-white transition-all duration-300 hover:text-white"
                 style={{
                   fontFamily: "var(--font-poppins), sans-serif",
@@ -552,44 +832,95 @@ export default function HomePage() {
               />
             </motion.a>
 
-            {/* Desktop nav — animated underline + rotating chevron */}
+            {/* Desktop nav — animated underline + rotating chevron + dropdowns */}
             <nav className="hidden md:flex items-center gap-8">
               {["HOME", "ABOUT US", "DENTAL SERVICES", "FOR PATIENTS", "CONTACT US"].map(
                 (item) => {
-                  const hasChevron = NAV_ITEMS_WITH_CHEVRON.includes(item);
+                  const submenu =
+                    item === "ABOUT US"
+                      ? ABOUT_SUBMENU
+                      : item === "DENTAL SERVICES"
+                      ? SERVICES_NAV
+                      : item === "FOR PATIENTS"
+                      ? PATIENTS_NAV
+                      : null;
+                  const hasSubmenu = !!submenu;
+                  const isOpen = openSubmenu === item;
+                  const itemHref =
+                    item === "HOME"
+                      ? "/"
+                      : item === "CONTACT US"
+                      ? "/contact-us"
+                      : item === "FOR PATIENTS"
+                      ? "/for-patients"
+                      : "#";
                   return (
-                    <a
+                    <div
                       key={item}
-                      href="#"
-                      className="group relative flex items-center gap-1 text-white uppercase"
-                      style={{
-                        fontFamily: "var(--font-poppins), sans-serif",
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        letterSpacing: "1.2px",
-                        whiteSpace: "nowrap",
-                        padding: "8px 0",
-                      }}
+                      className="relative"
+                      onMouseEnter={() => hasSubmenu && setOpenSubmenu(item)}
+                      onMouseLeave={() => hasSubmenu && setOpenSubmenu(null)}
                     >
-                      <span className="relative inline-flex items-center transition-colors duration-300 group-hover:text-[#279DB9]">
-                        {item}
-                        {hasChevron && (
-                          <span className="ml-1 inline-flex transition-transform duration-300 group-hover:rotate-180">
-                            <ChevronDown />
-                          </span>
-                        )}
-                      </span>
-                      {/* Animated underline */}
-                      <span
-                        className="absolute left-0 right-0 transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"
+                      <a
+                        href={itemHref}
+                        className="group relative flex items-center gap-1 text-white uppercase"
                         style={{
-                          bottom: "0",
-                          height: "2px",
-                          backgroundColor: "#279DB9",
-                          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          letterSpacing: "1.2px",
+                          whiteSpace: "nowrap",
+                          padding: "8px 0",
                         }}
-                      />
-                    </a>
+                      >
+                        <span className="relative inline-flex items-center transition-colors duration-300 group-hover:text-[#279DB9]">
+                          {item}
+                          {hasSubmenu && (
+                            <span
+                              className="ml-1 inline-flex transition-transform duration-300"
+                              style={{
+                                transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                              }}
+                            >
+                              <ChevronDown />
+                            </span>
+                          )}
+                        </span>
+                        <span
+                          className="absolute left-0 right-0 transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"
+                          style={{
+                            bottom: "0",
+                            height: "2px",
+                            backgroundColor: "#279DB9",
+                            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                          }}
+                        />
+                      </a>
+
+                      {hasSubmenu && (
+                        <AnimatePresence>
+                          {isOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 6 }}
+                              transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                              className="absolute left-0 top-full bg-[#0f0f0f] border border-[#279DB9]/30 shadow-2xl"
+                              style={{
+                                minWidth: "260px",
+                                marginTop: "4px",
+                                borderRadius: "6px",
+                                padding: "10px 0",
+                              }}
+                            >
+                              {submenu!.map((sub) => (
+                                <HomeNavSubItem key={sub.label} sub={sub} />
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      )}
+                    </div>
                   );
                 }
               )}
@@ -657,28 +988,75 @@ export default function HomePage() {
                 ×
               </button>
             </div>
-            <nav className="flex flex-col items-center gap-8 mt-12">
+            <nav className="flex flex-col items-center gap-6 mt-12 w-full px-6">
               {[
-                "Home",
-                "About Us",
-                "Dental Services",
-                "For Patients",
-                "Contact Us",
-              ].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
-                  style={{
-                    fontFamily: "var(--font-poppins), sans-serif",
-                    fontSize: "18px",
-                    fontWeight: 600,
-                  }}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item}
-                </a>
-              ))}
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "#", submenu: ABOUT_SUBMENU },
+                { label: "Dental Services", href: "#", submenu: SERVICES_NAV },
+                { label: "For Patients", href: "/for-patients", submenu: PATIENTS_NAV },
+                { label: "Contact Us", href: "/contact-us" },
+              ].map((item) => {
+                const hasSubmenu = !!item.submenu;
+                const isOpen = mobileSubmenuOpen === item.label;
+                return (
+                  <div key={item.label} className="w-full text-center">
+                    {hasSubmenu ? (
+                      <button
+                        onClick={() => setMobileSubmenuOpen(isOpen ? null : item.label)}
+                        className="inline-flex items-center gap-2 text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
+                        style={{
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "18px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {item.label}
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                            transition: "transform 0.2s",
+                          }}
+                        >
+                          <ChevronDown />
+                        </span>
+                      </button>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="inline-block text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
+                        style={{
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "18px",
+                          fontWeight: 600,
+                        }}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                    {hasSubmenu && isOpen && (
+                      <div className="mt-3 flex flex-col items-center gap-3">
+                        {item.submenu!.map((sub) => (
+                          <a
+                            key={sub.label}
+                            href={sub.href}
+                            className="text-white/80 hover:text-[#279DB9] transition-colors"
+                            style={{
+                              fontFamily: "var(--font-poppins), sans-serif",
+                              fontSize: "15px",
+                              letterSpacing: "0.5px",
+                            }}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {sub.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
               <a
                 href="tel:4039841616"
                 className="text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
@@ -704,9 +1082,8 @@ export default function HomePage() {
                 @calgarysouthdentalca
               </a>
               <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/contact-us"
+                onClick={() => setMobileMenuOpen(false)}
                 className="mt-4 flex items-center justify-center px-8 bg-[#279DB9] border-2 border-[#279DB9] text-white transition-all duration-300 hover:bg-transparent"
                 style={{
                   height: "46px",
@@ -778,7 +1155,7 @@ export default function HomePage() {
               fontFamily: "var(--font-montserrat), sans-serif",
               fontSize: "clamp(28px, 3.5vw, 50px)",
               fontWeight: 600,
-              lineHeight: "65px",
+              lineHeight: 1.15,
               letterSpacing: "2px",
             }}
           >
@@ -825,9 +1202,7 @@ export default function HomePage() {
 
           <motion.a
             variants={fadeUp}
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact-us"
             className="group mt-6 flex items-center justify-center gap-2 bg-[#279DB9] border-2 border-[#279DB9] text-white transition-all duration-300 hover:bg-transparent hover:text-white hover:scale-[1.03]"
             style={{
               height: "44px",
@@ -892,7 +1267,7 @@ export default function HomePage() {
           whileInView="visible"
           viewport={viewportOnce}
           className="max-w-[1440px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
         >
           <div className="flex-1">
             <h2
@@ -966,7 +1341,7 @@ export default function HomePage() {
               fontFamily: "var(--font-montserrat), sans-serif",
               fontSize: "clamp(28px, 3.5vw, 50px)",
               fontWeight: 600,
-              lineHeight: "60px",
+              lineHeight: 1.15,
               letterSpacing: "2px",
             }}
           >
@@ -987,7 +1362,7 @@ export default function HomePage() {
             gum contouring &mdash; whatever your smile goal, we&apos;ll map a plan that
             fits your face, your lifestyle, and your budget.
           </p>
-          <InlineLink href="#">Explore all services</InlineLink>
+          <InlineLink href="/cosmetic-care/teeth-whitening-se-calgary">Explore all services</InlineLink>
         </motion.div>
         <motion.div
           variants={fadeUp}
@@ -996,10 +1371,26 @@ export default function HomePage() {
           viewport={viewportOnce}
           className="flex flex-wrap justify-center mt-16"
         >
-          <ServiceCard image="/images/teeth-whitening.webp" title="TEETH WHITENING" />
-          <ServiceCard image="/images/porcelain-veneers.webp" title="PORCELAIN VENEERS" />
-          <ServiceCard image="/images/cosmetic-bonding.webp" title="COSMETIC BONDING" />
-          <ServiceCard image="/images/gum-contouring.webp" title="GUM CONTOURING" />
+          <ServiceCard
+            image="/images/teeth-whitening.webp"
+            title="TEETH WHITENING"
+            href="/cosmetic-care/teeth-whitening-se-calgary"
+          />
+          <ServiceCard
+            image="/images/porcelain-veneers.webp"
+            title="PORCELAIN VENEERS"
+            href="/cosmetic-care/porcelain-veneers-se-calgary"
+          />
+          <ServiceCard
+            image="/images/cosmetic-bonding.webp"
+            title="COSMETIC BONDING"
+            href="/cosmetic-care/cosmetic-bonding-se-calgary"
+          />
+          <ServiceCard
+            image="/images/gum-contouring.webp"
+            title="GUM CONTOURING"
+            href="/cosmetic-care/gum-contouring-se-calgary"
+          />
         </motion.div>
       </section>
 
@@ -1046,12 +1437,32 @@ export default function HomePage() {
           ============================================================ */}
       <section
         id="section-two"
-        className="w-full bg-[#279DB9]"
+        className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
+        {/* Decorative vector accents */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ top: 40, right: -80, zIndex: 0 }}
+          animate={{ rotate: [0, 8, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ bottom: 30, left: 30, zIndex: 0 }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
+        </motion.div>
+
         <div
-          className="max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          className="relative max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16"
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           {/* Left — photo with rounded corners + soft shadow + hover zoom */}
           <motion.div
@@ -1088,7 +1499,7 @@ export default function HomePage() {
                 fontFamily: "var(--font-montserrat), sans-serif",
                 fontSize: "clamp(28px, 3.5vw, 50px)",
                 fontWeight: 600,
-                lineHeight: "65px",
+                lineHeight: 1.15,
                 letterSpacing: "2px",
               }}
             >
@@ -1109,7 +1520,7 @@ export default function HomePage() {
               veneers, root canals, sedation dentistry, cosmetic procedures, and
               more&mdash;to help you and your family achieve healthy, beautiful smiles.
             </p>
-            <InlineLink href="#" light>
+            <InlineLink href="/meet-our-team" light>
               Meet the team
             </InlineLink>
           </motion.div>
@@ -1142,7 +1553,7 @@ export default function HomePage() {
           whileInView="visible"
           viewport={viewportOnce}
           className="relative max-w-[1440px] mx-auto"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
         >
           <div className="text-center max-w-[760px] mx-auto">
             <Eyebrow color="#279DB9">The CSD Standard</Eyebrow>
@@ -1291,72 +1702,35 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          SECTION 4 — NOW HIRING
-          Fix 11: center-align text
-          ============================================================ */}
-      <section
-        className="w-full bg-white"
-        style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
-      >
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="max-w-[1440px] mx-auto text-center"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
-        >
-          <h2
-            className="text-[#141f2e] text-center uppercase"
-            style={{
-              fontFamily: "var(--font-montserrat), sans-serif",
-              fontSize: "clamp(28px, 3.5vw, 50px)",
-              fontWeight: 600,
-              lineHeight: "60px",
-              letterSpacing: "2px",
-            }}
-          >
-            NOW HIRING
-          </h2>
-          <p
-            className="mt-6 text-[#141f2e] max-w-[860px] mx-auto text-center"
-            style={{
-              fontFamily: "var(--font-poppins), sans-serif",
-              fontSize: "16px",
-              fontWeight: 400,
-              lineHeight: "27.2px",
-            }}
-          >
-            Royal Bay Dental Co. is pleased to announce we are accepting applications
-            for building a remarkable team at our brand-new dental practice. If you value
-            hard work and a high degree of accountability in yourself, a positive work
-            environment and meaningful relationships with both team members and patients,
-            then we want to hear from you! Apply today and become part of our growing
-            family.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* ============================================================
           SECTION 5 — RESOLVE YOUR DENTAL CONCERNS
           ============================================================ */}
       <section
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "120px", paddingBottom: "120px" }}
       >
-        {/* Soft radial accent */}
-        <div
+        {/* Decorative vector accents */}
+        <motion.div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.12), transparent 70%)",
-          }}
-        />
+          className="absolute pointer-events-none"
+          style={{ top: 40, right: -80, zIndex: 0 }}
+          animate={{ rotate: [0, 8, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ bottom: 30, left: 30, zIndex: 0 }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
+        </motion.div>
 
         <div
           className="relative max-w-[1440px] mx-auto"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           {/* Header */}
           <motion.div
@@ -1391,7 +1765,7 @@ export default function HomePage() {
               Calgary South Dental is here to solve all your dental problems. Select a concern from the common dental issues below and explore options to achieve a healthy mouth, a stunning smile, and a better quality of life.
             </p>
             <a
-              href="/book-appointment/"
+              href="/contact-us"
               className="group inline-flex items-center justify-center gap-2 mt-8 px-8 bg-white border-2 border-white text-[#279DB9] transition-all duration-300 hover:bg-transparent hover:text-white hover:scale-[1.03]"
               style={{
                 height: "52px",
@@ -1507,7 +1881,7 @@ export default function HomePage() {
               fontFamily: "var(--font-montserrat), sans-serif",
               fontSize: "clamp(28px, 3.5vw, 50px)",
               fontWeight: 600,
-              lineHeight: "60px",
+              lineHeight: 1.15,
               letterSpacing: "2px",
             }}
           >
@@ -1524,15 +1898,15 @@ export default function HomePage() {
           >
             Begin your journey to a healthier, more radiant smile with Royal Bay Dental Co.
           </p>
-          <InlineLink href="#" light>General dentistry</InlineLink>
+          <InlineLink href="/general-dentistry/dental-cleanings-se-calgary" light>General dentistry</InlineLink>
         </motion.div>
       </div>
 
       {/* ============================================================
-          SECTION 7 — ALWAYS WELCOMING NEW PATIENTS
+          SECTION 7 — DIRECT BILLING (insurance logo marquee)
           ============================================================ */}
       <section
-        className="w-full bg-white"
+        className="w-full bg-white overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
         <motion.div
@@ -1541,23 +1915,23 @@ export default function HomePage() {
           whileInView="visible"
           viewport={viewportOnce}
           className="max-w-[1440px] mx-auto text-center"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
         >
-          <Eyebrow>Royal Bay Dental Co.</Eyebrow>
+          <Eyebrow>Dentist in South Calgary</Eyebrow>
           <h2
             className="text-[#141f2e] uppercase"
             style={{
               fontFamily: "var(--font-montserrat), sans-serif",
               fontSize: "clamp(28px, 3.5vw, 50px)",
               fontWeight: 600,
-              lineHeight: "60px",
+              lineHeight: 1.15,
               letterSpacing: "2px",
             }}
           >
-            ALWAYS WELCOMING NEW PATIENTS
+            Direct Billing
           </h2>
           <p
-            className="mt-6 text-[#141f2e] max-w-[700px] mx-auto"
+            className="mt-6 text-[#141f2e] max-w-[820px] mx-auto"
             style={{
               fontFamily: "var(--font-poppins), sans-serif",
               fontSize: "16px",
@@ -1565,103 +1939,82 @@ export default function HomePage() {
               lineHeight: "27.2px",
             }}
           >
-            Experience the Royal Bay Dental Co. difference! Our Dentists Victoria BC
-            accepting new patients and provide personalized treatment plans according to
-            your dental needs. Join our caring dental community today!
+            Accepting Most Major Insurances and Government Plans for Your Convenience!
           </p>
-          <InlineLink href="#">Contact us</InlineLink>
         </motion.div>
-      </section>
 
-      {/* ============================================================
-          SECTION 8 — INVISALIGN SOLUTIONS (split bg images)
-          ============================================================ */}
-      <section className="w-full relative overflow-hidden" style={{ minHeight: "500px" }}>
-        {/* Split background — full-bleed */}
-        <div className="absolute inset-0 flex">
-          <div
-            className="flex-1"
-            style={{
-              backgroundImage: "url('/images/invisalign-bg-left.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "50% 50%",
-            }}
-          />
-          <div
-            style={{
-              width: "307px",
-              flexShrink: 0,
-              backgroundImage: "url('/images/invisalign-bg-right.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "50% 50%",
-            }}
-          />
-        </div>
-
-        {/* Content: right half, white background */}
-        <div className="relative z-10 flex h-full" style={{ minHeight: "500px" }}>
-          {/* Spacer left half */}
-          <div className="flex-1" />
-          {/* Text right half */}
+        {/* Logo marquee */}
+        <div
+          className="relative w-full mt-12"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
+          }}
+        >
           <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            className="bg-white flex flex-col justify-center"
-            style={{
-              width: "50%",
-              minWidth: "320px",
-              paddingLeft: "80px",
-              paddingRight: "80px",
-              paddingTop: "60px",
-              paddingBottom: "60px",
+            className="flex items-center gap-16"
+            style={{ width: "max-content" }}
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" },
             }}
           >
-            <Eyebrow>Royal Bay Dental Co.</Eyebrow>
-            <h2
-              className="text-[#141f2e] uppercase"
-              style={{
-                fontFamily: "var(--font-montserrat), sans-serif",
-                fontSize: "clamp(28px, 3vw, 50px)",
-                fontWeight: 600,
-                lineHeight: "60px",
-                letterSpacing: "2px",
-              }}
-            >
-              INVISALIGN Solutions
-            </h2>
-            <p
-              className="mt-6 text-[#141f2e]"
-              style={{
-                fontFamily: "var(--font-poppins), sans-serif",
-                fontSize: "16px",
-                fontWeight: 400,
-                lineHeight: "27.2px",
-              }}
-            >
-              Invisalign offers a modern, subtle way to enhance your smile. With flexible,
-              comfortable aligners, our dental team at Royal Bay Dental Co. can straighten
-              your teeth and improve your bite. Enjoy a cleaner, more balanced, and radiant
-              smile with Invisalign!
-            </p>
-            <InlineLink href="https://royalbaydentalco.ca/victoria-bc/invisalign/">
-              Continue reading
-            </InlineLink>
+            {[...Array(2)].map((_, dup) => (
+              <div key={dup} className="flex items-center gap-16 shrink-0">
+                {[
+                  { src: "/images/insurance/canada.png", alt: "Government of Canada" },
+                  { src: "/images/insurance/claim.png", alt: "Claim Secure" },
+                  { src: "/images/insurance/green-shield-canada.png", alt: "Green Shield Canada" },
+                  { src: "/images/insurance/des.png", alt: "DES Dental Insurance" },
+                  { src: "/images/insurance/sun.png", alt: "Sun Life" },
+                  { src: "/images/insurance/pacific.png", alt: "Pacific Blue Cross" },
+                ].map((logo, i) => (
+                  <img
+                    key={`${dup}-${i}`}
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="shrink-0 object-contain"
+                    style={{ height: "90px", width: "auto" }}
+                  />
+                ))}
+              </div>
+            ))}
           </motion.div>
         </div>
       </section>
 
       {/* ============================================================
-          SECTION 9 — TRANSFORMATIVE COSMETIC DENTISTRY
+          SECTION 9 — NIHB (FIRST NATIONS & INUITS)
           ============================================================ */}
       <section
-        className="w-full bg-[#279DB9]"
+        className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
+        {/* Decorative vector accents */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ top: 40, right: -80, zIndex: 0 }}
+          animate={{ rotate: [0, 8, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ bottom: 30, left: 30, zIndex: 0 }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
+        </motion.div>
+
         <div
-          className="max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          className="relative max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16"
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           {/* Left — text */}
           <motion.div
@@ -1671,7 +2024,7 @@ export default function HomePage() {
             viewport={viewportOnce}
             className="flex-1"
           >
-            <Eyebrow>SERVICES</Eyebrow>
+            <Eyebrow>Government Coverage</Eyebrow>
             <div className="flex items-start gap-4">
               {/* Rotated vertical label */}
               <div
@@ -1690,7 +2043,7 @@ export default function HomePage() {
                     letterSpacing: "5.6px",
                   }}
                 >
-                  Cosmetic DENTISTRY
+                  NIHB Provider
                 </span>
               </div>
               <div>
@@ -1700,11 +2053,11 @@ export default function HomePage() {
                     fontFamily: "var(--font-montserrat), sans-serif",
                     fontSize: "clamp(28px, 3.5vw, 50px)",
                     fontWeight: 600,
-                    lineHeight: "65px",
+                    lineHeight: 1.15,
                     letterSpacing: "2px",
                   }}
                 >
-                  Transformative Cosmetic Dentistry
+                  We accept the Non-Insured Health Benefits for First Nations and Inuits
                 </h2>
                 <p
                   className="mt-6 text-white"
@@ -1715,17 +2068,15 @@ export default function HomePage() {
                     lineHeight: "27.2px",
                   }}
                 >
-                  At Royal Bay Dental Co., we offer various cosmetic dental services,
-                  including porcelain veneers, cosmetic bonding, and complete smile
-                  makeovers. Our cosmetic{" "}
-                  <a href="#" className="underline">
-                    dentist
-                  </a>{" "}
-                  will develop a customized plan to help you achieve the stunning smile
-                  you&apos;ve always dreamed of. Discover how we can transform your smile
-                  today!
+                  Calgary South Dental is proud to be a registered NIHB provider, offering
+                  direct billing for eligible First Nations and Inuit patients across
+                  Alberta. Our team takes care of the paperwork so you can focus on your
+                  smile — from routine cleanings and exams to fillings, extractions, and
+                  preventive care, all covered under the Non-Insured Health Benefits
+                  program. Walk in with your status information and we&apos;ll handle the
+                  rest.
                 </p>
-                <InlineLink href="#" light>Cosmetic dentistry</InlineLink>
+                <InlineLink href="/non-insured-health-benefits-for-first-nations-and-inuits" light>Learn More</InlineLink>
               </div>
             </div>
           </motion.div>
@@ -1743,8 +2094,8 @@ export default function HomePage() {
             }}
           >
             <img
-              src="/images/cosmetic-dentistry.webp"
-              alt="Transformative cosmetic dentistry"
+              src="/images/nihb-first-nations-inuits.webp"
+              alt="Smiling patients — Non-Insured Health Benefits for First Nations and Inuits"
               className="transition-transform duration-[800ms] ease-out group-hover:scale-105"
               style={{ width: "620px", maxWidth: "100%", objectFit: "cover", display: "block" }}
             />
@@ -1759,16 +2110,36 @@ export default function HomePage() {
           ============================================================ */}
       <section
         id="section-testimonials"
-        className="w-full bg-white"
+        className="w-full bg-white relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
+        {/* Decorative vector accents */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ top: -80, right: -80, zIndex: 0 }}
+          animate={{ rotate: [0, 6, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <OrganicBlob color="#279DB9" size={420} opacity={0.08} />
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ bottom: 40, left: 40, zIndex: 0 }}
+          animate={{ x: [0, 10, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <SmileArc color="#d8a986" width={260} height={90} opacity={0.45} />
+        </motion.div>
+
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="max-w-[1440px] mx-auto"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          className="relative max-w-[1440px] mx-auto"
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           {/* Heading + Google rating row */}
           <div className="text-center mb-12">
@@ -1778,7 +2149,7 @@ export default function HomePage() {
                 fontFamily: "var(--font-montserrat), sans-serif",
                 fontSize: "clamp(28px, 3.5vw, 50px)",
                 fontWeight: 600,
-                lineHeight: "65px",
+                lineHeight: 1.15,
                 letterSpacing: "2px",
               }}
             >
@@ -1796,7 +2167,7 @@ export default function HomePage() {
               aria-label="Previous testimonial"
               onClick={prevTestimonial}
               disabled={testimonialIndex === 0}
-              className="transition-opacity duration-300 disabled:opacity-30"
+              className="hidden md:block transition-opacity duration-300 disabled:opacity-30"
               style={{
                 position: "absolute",
                 left: "-60px",
@@ -1904,7 +2275,7 @@ export default function HomePage() {
               aria-label="Next testimonial"
               onClick={nextTestimonial}
               disabled={testimonialIndex >= maxIndex}
-              className="transition-opacity duration-300 disabled:opacity-30"
+              className="hidden md:block transition-opacity duration-300 disabled:opacity-30"
               style={{
                 position: "absolute",
                 right: "-60px",
@@ -1933,7 +2304,7 @@ export default function HomePage() {
       >
         <div
           className="max-w-[1440px] mx-auto flex flex-col md:flex-row gap-12 md:gap-16"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
         >
           {/* Left — Google Maps */}
           <motion.div
@@ -1975,7 +2346,7 @@ export default function HomePage() {
                 fontFamily: "var(--font-montserrat), sans-serif",
                 fontSize: "clamp(28px, 3.5vw, 50px)",
                 fontWeight: 600,
-                lineHeight: "60px",
+                lineHeight: 1.15,
                 letterSpacing: "2px",
               }}
             >
@@ -2115,7 +2486,7 @@ export default function HomePage() {
       <footer className="w-full bg-[#000000]">
         <div
           className="max-w-[1440px] mx-auto py-12 flex flex-col items-center gap-8"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
         >
           {/* Logo */}
           <a href="/">
@@ -2131,10 +2502,10 @@ export default function HomePage() {
             <nav className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
               {[
                 { label: "HOME", href: "/" },
-                { label: "ABOUT US", href: "#" },
-                { label: "DENTAL SERVICES", href: "#" },
-                { label: "FOR PATIENTS", href: "#" },
-                { label: "CONTACT US", href: "/contact-us/" },
+                { label: "MEET OUR TEAM", href: "/meet-our-team" },
+                { label: "WHY US", href: "/why-us" },
+                { label: "FOR PATIENTS", href: "/for-patients" },
+                { label: "CONTACT US", href: "/contact-us" },
               ].map((item) => (
                 <a
                   key={item.label}
