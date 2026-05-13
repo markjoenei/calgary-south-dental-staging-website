@@ -2,10 +2,10 @@
 
 import { motion } from "motion/react";
 import {
-  DotGrid,
   Eyebrow,
   InlineLink,
-  OrganicBlob,
+  InuitSectionBg,
+  InuitTealAccents,
   PageHero,
   SiteFooter,
   SiteHeader,
@@ -41,16 +41,17 @@ export default function ForPatientsPage() {
           INTRO STRIP
           ============================================================ */}
       <section
-        className="w-full bg-white"
+        className="relative w-full bg-white overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "60px" }}
       >
+        <InuitSectionBg />
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="max-w-[1100px] mx-auto text-center"
-          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
+          className="relative max-w-[1100px] mx-auto text-center"
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           <Eyebrow>Welcome to Calgary South Dental</Eyebrow>
           <h2
@@ -89,24 +90,7 @@ export default function ForPatientsPage() {
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px", scrollMarginTop: "120px" }}
       >
-        <motion.div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ top: 40, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 8, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
-        </motion.div>
-        <motion.div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ bottom: 30, left: 30, zIndex: 0 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
-        </motion.div>
+        <InuitTealAccents variant="sun" />
 
         <div
           className="relative max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16"

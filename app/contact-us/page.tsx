@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import {
-  DotGrid,
   Eyebrow,
-  OrganicBlob,
   PageHero,
   SiteFooter,
   SiteHeader,
+  InuitTealAccents,
+  InuitSectionBg,
 } from "../components/SiteChrome";
 
 const fadeUp = {
@@ -32,8 +32,6 @@ const HOURS = [
   { day: "Sunday", hours: "Closed" },
 ];
 
-const HEAR_OPTIONS = ["Facebook", "Instagram", "Google Ad", "Reviews", "Walk In", "Word Of Mouth", "Other"];
-
 export default function ContactUsPage() {
   const [submitted, setSubmitted] = useState(false);
 
@@ -54,8 +52,9 @@ export default function ContactUsPage() {
       {/* ============================================================
           CONTACT INFO CARDS
           ============================================================ */}
-      <section className="w-full bg-white" style={{ paddingTop: "86.4px", paddingBottom: "60px" }}>
-        <div className="max-w-[1440px] mx-auto" style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}>
+      <section className="relative w-full bg-white overflow-hidden" style={{ paddingTop: "86.4px", paddingBottom: "60px" }}>
+        <InuitSectionBg />
+        <div className="relative max-w-[1440px] mx-auto" style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}>
           <motion.div
             variants={{
               hidden: {},
@@ -70,7 +69,8 @@ export default function ContactUsPage() {
               {
                 label: "Visit Us",
                 lines: ["60 Sunpark Plaza SE", "Unit 120", "Calgary, AB T2X 3Y2"],
-                cta: { href: "https://maps.google.com/?q=60+Sunpark+Plaza+SE+Unit+120,+Calgary,+AB", text: "Get directions" },
+                linesHref: "https://www.google.com/maps/place/Calgary+South+Dental/@50.9696866,-114.0468825,21901m/data=!3m1!1e3!4m6!3m5!1s0x53717788900e409b:0x8cd7b1c14e176e0a!8m2!3d50.901242!4d-114.0558708!16s%2Fg%2F11w4h015gp?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D",
+                cta: { href: "https://www.google.com/maps/place/Calgary+South+Dental/@50.9696866,-114.0468825,21901m/data=!3m1!1e3!4m6!3m5!1s0x53717788900e409b:0x8cd7b1c14e176e0a!8m2!3d50.901242!4d-114.0558708!16s%2Fg%2F11w4h015gp?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D", text: "Get directions" },
               },
               {
                 label: "Call Us",
@@ -80,7 +80,7 @@ export default function ContactUsPage() {
               {
                 label: "Connect",
                 lines: ["@calgarysouthdentalca", "On Instagram & Facebook", "DM us anytime"],
-                cta: { href: "https://www.instagram.com/calgarysouthdentalca", text: "Follow on Instagram" },
+                cta: { href: "https://www.instagram.com/calgarysouthdentalca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", text: "Follow on Instagram" },
               },
             ].map((card) => (
               <motion.div
@@ -94,22 +94,45 @@ export default function ContactUsPage() {
                 }}
               >
                 <Eyebrow>{card.label}</Eyebrow>
-                <div className="mt-2 space-y-1">
-                  {card.lines.map((l) => (
-                    <p
-                      key={l}
-                      className="text-[#141f2e]"
-                      style={{
-                        fontFamily: "var(--font-poppins), sans-serif",
-                        fontSize: "17px",
-                        fontWeight: 500,
-                        lineHeight: "27px",
-                      }}
-                    >
-                      {l}
-                    </p>
-                  ))}
-                </div>
+                {"linesHref" in card && card.linesHref ? (
+                  <a
+                    href={card.linesHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block mt-2 space-y-1 text-[#141f2e] hover:text-[#279DB9] transition-colors duration-300"
+                  >
+                    {card.lines.map((l) => (
+                      <p
+                        key={l}
+                        style={{
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "17px",
+                          fontWeight: 500,
+                          lineHeight: "27px",
+                        }}
+                      >
+                        {l}
+                      </p>
+                    ))}
+                  </a>
+                ) : (
+                  <div className="mt-2 space-y-1">
+                    {card.lines.map((l) => (
+                      <p
+                        key={l}
+                        className="text-[#141f2e]"
+                        style={{
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "17px",
+                          fontWeight: 500,
+                          lineHeight: "27px",
+                        }}
+                      >
+                        {l}
+                      </p>
+                    ))}
+                  </div>
+                )}
                 <a
                   href={card.cta.href}
                   target={card.cta.href.startsWith("http") ? "_blank" : undefined}
@@ -243,20 +266,10 @@ export default function ContactUsPage() {
                   <input type="text" name="lastName" placeholder="Last Name*" required className="contact-input" />
                 </div>
                 <input type="email" name="email" placeholder="Email*" required className="contact-input" />
-                <input type="tel" name="phone" placeholder="Phone" className="contact-input" />
-                <select name="howHeard" defaultValue="" required className="contact-input">
-                  <option value="" disabled hidden>
-                    How did you hear about us?*
-                  </option>
-                  {HEAR_OPTIONS.map((o) => (
-                    <option key={o} value={o} style={{ color: "#141f2e" }}>
-                      {o}
-                    </option>
-                  ))}
-                </select>
+                <input type="tel" name="phone" placeholder="Phone*" required className="contact-input" />
                 <textarea
                   name="message"
-                  placeholder="How can we help?*"
+                  placeholder="Message*"
                   required
                   rows={5}
                   className="contact-input"
@@ -379,24 +392,7 @@ export default function ContactUsPage() {
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
-        <motion.div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ top: 40, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 8, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
-        </motion.div>
-        <motion.div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ bottom: 30, left: 30, zIndex: 0 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
-        </motion.div>
+        <InuitTealAccents variant="diamond" />
 
         <motion.div
           variants={fadeUp}

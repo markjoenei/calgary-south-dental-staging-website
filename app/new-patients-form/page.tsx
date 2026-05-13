@@ -2,12 +2,12 @@
 
 import { motion } from "motion/react";
 import {
-  DotGrid,
   Eyebrow,
-  OrganicBlob,
   PageHero,
   SiteFooter,
   SiteHeader,
+  InuitTealAccents,
+  InuitSectionBg,
 } from "../components/SiteChrome";
 
 const fadeUp = {
@@ -83,14 +83,15 @@ export default function NewPatientsFormPage() {
       {/* ============================================================
           INTRO
           ============================================================ */}
-      <section className="w-full bg-white" style={{ paddingTop: "86.4px", paddingBottom: "60px" }}>
+      <section className="relative w-full bg-white overflow-hidden" style={{ paddingTop: "86.4px", paddingBottom: "60px" }}>
+        <InuitSectionBg />
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="max-w-[1100px] mx-auto text-center"
-          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
+          className="relative max-w-[1100px] mx-auto text-center"
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           <Eyebrow>Online Intake Form</Eyebrow>
           <h2
@@ -228,24 +229,7 @@ export default function NewPatientsFormPage() {
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
-        <motion.div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ top: 40, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 8, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
-        </motion.div>
-        <motion.div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ bottom: 30, left: 30, zIndex: 0 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
-        </motion.div>
+        <InuitTealAccents variant="star" />
 
         <div
           className="relative max-w-[1100px] mx-auto text-center"

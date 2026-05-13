@@ -10,36 +10,76 @@ import { PATIENTS_NAV, SERVICES_NAV } from "../services-data";
 
 function ChevronDown() {
   return (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6 9l6 6 6-6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: "inline-block", flexShrink: 0 }}
+      aria-hidden="true"
+    >
+      <polyline points="2,4 6,8 10,4" />
     </svg>
   );
 }
 
 function PhoneIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20.487 17.14l-4.065-3.696a1 1 0 00-1.391.043l-2.393 2.461c-.576-.11-1.734-.471-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 00.043-1.391L6.859 3.513a1 1 0 00-1.391-.087l-2.17 1.861a1 1 0 00-.29.649c-.015.25-.301 6.172 4.291 10.766C11.305 20.707 16.323 21 17.705 21c.202 0 .326-.006.359-.008a.992.992 0 00.648-.291l1.86-2.171a1 1 0 00-.085-1.39z" />
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: "inline-block", flexShrink: 0 }}
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.66A2 2 0 012 .84h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
     </svg>
   );
 }
 
-function InstagramIcon({ size = 24 }: { size?: number }) {
+function InstagramIcon({ size = 22 }: { size?: number }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0 1.802c-3.141 0-3.515.012-4.751.068-1.022.047-1.578.218-1.946.362-.489.19-.838.418-1.205.784a3.252 3.252 0 00-.784 1.205c-.144.368-.315.924-.362 1.946-.056 1.236-.068 1.61-.068 4.751s.012 3.515.068 4.751c.047 1.022.218 1.578.362 1.946.19.489.418.838.784 1.205.367.366.716.594 1.205.784.368.144.924.315 1.946.362 1.236.056 1.61.068 4.751.068s3.515-.012 4.751-.068c1.022-.047 1.578-.218 1.946-.362.489-.19.838-.418 1.205-.784.366-.367.594-.716.784-1.205.144-.368.315-.924.362-1.946.056-1.236.068-1.61.068-4.751s-.012-3.515-.068-4.751c-.047-1.022-.218-1.578-.362-1.946a3.252 3.252 0 00-.784-1.205 3.252 3.252 0 00-1.205-.784c-.368-.144-.924-.315-1.946-.362-1.236-.056-1.61-.068-4.751-.068zm0 3.063A5.135 5.135 0 1112 17.135 5.135 5.135 0 0112 7.028zm0 8.468a3.333 3.333 0 100-6.666 3.333 3.333 0 000 6.666zm6.538-8.671a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z" />
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
     </svg>
   );
 }
@@ -191,54 +231,133 @@ export function SiteHeader() {
             : "0 0 0 0 rgba(0,0,0,0)",
         }}
       >
-        {/* Top utility bar */}
+        {/* ROW 1 — Top Utility Bar — collapses on scroll */}
         <motion.div
           className="w-full overflow-hidden"
           initial={false}
           animate={{
-            height: headerScrolled ? 0 : 46,
+            height: headerScrolled ? 0 : 56,
             opacity: headerScrolled ? 0 : 1,
           }}
           transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           style={{ backgroundColor: "#279DB9" }}
         >
           <div
-            className="w-full flex items-center justify-between text-white"
+            className="w-full flex items-center justify-between"
             style={{
               height: "46px",
               maxWidth: "1825px",
               margin: "0 auto",
-              paddingLeft: "clamp(16px, 3vw, 30px)",
-              paddingRight: "clamp(16px, 3vw, 30px)",
-              fontFamily: "var(--font-poppins), sans-serif",
-              fontSize: "13px",
-              letterSpacing: "0.5px",
+              paddingTop: "5px",
+              paddingBottom: "5px",
+              paddingLeft: "clamp(16px, 5vw, 80px)",
+              paddingRight: "clamp(16px, 5vw, 80px)",
             }}
           >
-            <span>60 Sunpark Plaza SE Unit 120, Calgary, AB</span>
+            {/* Social icons — Instagram + Facebook */}
+            <div className="flex items-center gap-4">
+              <a
+                href="https://www.instagram.com/calgarysouthdentalca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex items-center text-white transition-transform duration-300 hover:scale-110"
+              >
+                <InstagramIcon size={20} />
+              </a>
+              <a
+                href="https://www.facebook.com/people/Calgary-South-Dental/61561602615233/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex items-center text-white transition-transform duration-300 hover:scale-110"
+              >
+                <FacebookIcon size={20} />
+              </a>
+            </div>
+
+            {/* Address — hidden on mobile, links to Google Maps */}
             <a
-              href="https://www.instagram.com/calgarysouthdentalca"
+              href="https://www.google.com/maps/place/Calgary+South+Dental/@50.9696866,-114.0468825,21901m/data=!3m1!1e3!4m6!3m5!1s0x53717788900e409b:0x8cd7b1c14e176e0a!8m2!3d50.901242!4d-114.0558708!16s%2Fg%2F11w4h015gp?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="hover:opacity-80 transition-opacity"
+              className="hidden md:flex items-center hover:opacity-80 transition-opacity duration-300"
+              style={{
+                fontFamily: "var(--font-montserrat), sans-serif",
+                fontSize: "13px",
+                fontWeight: 600,
+                lineHeight: "13px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "#ffffff",
+              }}
             >
-              <InstagramIcon size={18} />
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style={{ marginRight: "6px", verticalAlign: "middle" }}
+                aria-hidden="true"
+              >
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z" />
+              </svg>
+              60 Sunpark Plaza SE Unit 120 Calgary, AB T2X 3Y2
             </a>
+
+            {/* Right side — Book Online Here */}
+            <div className="flex items-center gap-3">
+              <a
+                href="/contact-us"
+                className="group hidden md:inline-flex items-center justify-center text-white transition-colors duration-300 hover:text-[#141f2e]"
+                style={{
+                  fontFamily: "var(--font-poppins), sans-serif",
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              >
+                Book Online Here
+                <span
+                  className="ml-2 inline-flex items-center justify-center transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:scale-110 group-hover:bg-[#141f2e] group-hover:text-white"
+                  style={{
+                    width: "22px",
+                    height: "22px",
+                    borderRadius: "50%",
+                    backgroundColor: "#ffffff",
+                    color: "#279DB9",
+                    fontSize: "12px",
+                    transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                >
+                  &#8594;
+                </span>
+              </a>
+            </div>
           </div>
         </motion.div>
 
-        {/* Main nav row */}
-        <div className="w-full bg-[#0f0f0f]">
+        {/* ROW 2 — Main Nav — black band with glass effect on scroll */}
+        <div
+          className="w-full"
+          style={{
+            backgroundColor: headerScrolled ? "rgba(0,0,0,0.85)" : "#000000",
+            backdropFilter: headerScrolled ? "blur(12px)" : "none",
+            WebkitBackdropFilter: headerScrolled ? "blur(12px)" : "none",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            transition: "background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
           <div
             className="w-full flex items-center justify-between"
             style={{
               maxWidth: "1825px",
               margin: "0 auto",
-              paddingLeft: "clamp(16px, 3vw, 30px)",
-              paddingRight: "clamp(16px, 3vw, 30px)",
-              paddingTop: "10px",
-              paddingBottom: "10px",
+              paddingLeft: "clamp(16px, 5vw, 80px)",
+              paddingRight: "clamp(16px, 5vw, 80px)",
             }}
           >
             <motion.a
@@ -389,38 +508,47 @@ export function SiteHeader() {
                 ×
               </button>
             </div>
-            <nav className="flex flex-col items-center gap-6 mt-8 px-6">
+            <nav className="flex flex-col items-center gap-6 mt-12 w-full px-6">
               {NAV_ITEMS.map((item) => {
                 const hasSubmenu = !!item.submenu;
                 const isOpen = mobileSubmenuOpen === item.label;
                 return (
                   <div key={item.label} className="w-full text-center">
-                    <button
-                      onClick={() =>
-                        hasSubmenu
-                          ? setMobileSubmenuOpen(isOpen ? null : item.label)
-                          : (window.location.href = item.href)
-                      }
-                      className="inline-flex items-center gap-2 text-white uppercase"
-                      style={{
-                        fontFamily: "var(--font-poppins), sans-serif",
-                        fontSize: "18px",
-                        fontWeight: 500,
-                        letterSpacing: "1.4px",
-                      }}
-                    >
-                      {item.label}
-                      {hasSubmenu && (
+                    {hasSubmenu ? (
+                      <button
+                        onClick={() => setMobileSubmenuOpen(isOpen ? null : item.label)}
+                        className="inline-flex items-center gap-2 text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
+                        style={{
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "18px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {item.label}
                         <span
                           style={{
+                            display: "inline-flex",
                             transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                             transition: "transform 0.2s",
                           }}
                         >
                           <ChevronDown />
                         </span>
-                      )}
-                    </button>
+                      </button>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="inline-block text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
+                        style={{
+                          fontFamily: "var(--font-poppins), sans-serif",
+                          fontSize: "18px",
+                          fontWeight: 600,
+                        }}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    )}
                     {hasSubmenu && isOpen && (
                       <div className="mt-3 flex flex-col items-center gap-3">
                         {item.submenu!.map((sub) => (
@@ -433,6 +561,7 @@ export function SiteHeader() {
                               fontSize: "15px",
                               letterSpacing: "0.5px",
                             }}
+                            onClick={() => setMobileMenuOpen(false)}
                           >
                             {sub.label}
                           </a>
@@ -444,17 +573,43 @@ export function SiteHeader() {
               })}
               <a
                 href="tel:4039841616"
-                className="mt-4 flex items-center justify-center px-8 bg-[#279DB9] border-2 border-[#279DB9] text-white"
+                className="text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
+                style={{
+                  fontFamily: "var(--font-poppins), sans-serif",
+                  fontSize: "18px",
+                  fontWeight: 600,
+                }}
+              >
+                403-984-1616
+              </a>
+              <a
+                href="https://www.instagram.com/calgarysouthdentalca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-[#279DB9] transition-colors duration-300"
+                style={{
+                  fontFamily: "var(--font-poppins), sans-serif",
+                  fontSize: "16px",
+                  fontWeight: 400,
+                }}
+              >
+                @calgarysouthdentalca
+              </a>
+              <a
+                href="/contact-us"
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-4 flex items-center justify-center px-8 bg-[#279DB9] border-2 border-[#279DB9] text-white transition-all duration-300 hover:bg-transparent"
                 style={{
                   height: "46px",
                   borderRadius: "999px",
                   fontFamily: "var(--font-poppins), sans-serif",
-                  fontSize: "15px",
-                  fontWeight: 600,
+                  fontSize: "16px",
+                  fontWeight: 500,
                   letterSpacing: "1px",
+                  textTransform: "uppercase",
                 }}
               >
-                403-984-1616
+                Book Now
               </a>
             </nav>
           </motion.div>
@@ -506,15 +661,26 @@ export function SiteFooter() {
               </a>
             ))}
           </nav>
-          <a
-            href="https://www.instagram.com/calgarysouthdentalca"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="absolute right-0 text-white hover:text-[#279DB9] transition-colors duration-300"
-          >
-            <InstagramIcon size={24} />
-          </a>
+          <div className="absolute right-0 flex items-center gap-4">
+            <a
+              href="https://www.instagram.com/calgarysouthdentalca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="text-white hover:text-[#279DB9] transition-colors duration-300"
+            >
+              <InstagramIcon size={24} />
+            </a>
+            <a
+              href="https://www.facebook.com/people/Calgary-South-Dental/61561602615233/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="text-white hover:text-[#279DB9] transition-colors duration-300"
+            >
+              <FacebookIcon size={24} />
+            </a>
+          </div>
         </div>
 
         <hr
@@ -641,6 +807,318 @@ export function OrganicBlob({
   );
 }
 
+// ============================================================
+// INUIT-INSPIRED DECORATIONS — used on teal feature sections
+// and as a faint textile-pattern backdrop on white sections.
+// ============================================================
+
+export function InuitDiamondCluster({
+  size = 380,
+  primary = "#d8a986",
+  secondary = "#ffffff",
+}: {
+  size?: number;
+  primary?: string;
+  secondary?: string;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      width={size}
+      height={size}
+      viewBox="0 0 380 380"
+      fill="none"
+      style={{ display: "block" }}
+    >
+      <g transform="translate(190 190)">
+        <polygon points="0,-150 150,0 0,150 -150,0" stroke={primary} strokeWidth="2" fill="none" opacity="0.55" />
+        <polygon points="0,-115 115,0 0,115 -115,0" stroke={secondary} strokeWidth="1.5" fill="none" opacity="0.5" />
+        <polygon points="0,-80 80,0 0,80 -80,0" fill={primary} opacity="0.32" />
+        <polygon points="0,-45 45,0 0,45 -45,0" fill={secondary} opacity="0.45" />
+        <path d="M0,-150 L-10,-168 L0,-186 L10,-168 Z" fill={primary} opacity="0.6" />
+        <path d="M150,0 L168,-10 L186,0 L168,10 Z" fill={primary} opacity="0.6" />
+        <path d="M0,150 L10,168 L0,186 L-10,168 Z" fill={primary} opacity="0.6" />
+        <path d="M-150,0 L-168,10 L-186,0 L-168,-10 Z" fill={primary} opacity="0.6" />
+        <circle r="5" fill={secondary} opacity="0.85" />
+      </g>
+    </svg>
+  );
+}
+
+export function InuitWaveLines({
+  width = 420,
+  height = 220,
+  primary = "#ffffff",
+  secondary = "#d8a986",
+}: {
+  width?: number;
+  height?: number;
+  primary?: string;
+  secondary?: string;
+}) {
+  return (
+    <svg aria-hidden="true" width={width} height={height} viewBox="0 0 420 220" fill="none" style={{ display: "block" }}>
+      <path d="M0,40 Q105,10 210,40 T420,40" stroke={primary} strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.5" />
+      <path d="M0,85 Q105,55 210,85 T420,85" stroke={secondary} strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.65" />
+      <path d="M0,130 Q105,100 210,130 T420,130" stroke={primary} strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.45" />
+      <path d="M0,175 Q105,145 210,175 T420,175" stroke={secondary} strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.4" />
+      <path d="M55,32 L62,22 L69,32 Z" fill={primary} opacity="0.55" />
+      <path d="M155,32 L162,22 L169,32 Z" fill={primary} opacity="0.55" />
+      <path d="M255,32 L262,22 L269,32 Z" fill={primary} opacity="0.55" />
+      <path d="M355,32 L362,22 L369,32 Z" fill={primary} opacity="0.55" />
+      <circle cx="105" cy="155" r="2" fill={secondary} opacity="0.6" />
+      <circle cx="210" cy="155" r="2" fill={secondary} opacity="0.6" />
+      <circle cx="315" cy="155" r="2" fill={secondary} opacity="0.6" />
+    </svg>
+  );
+}
+
+export function InuitSunburst({
+  size = 400,
+  primary = "#d8a986",
+  secondary = "#ffffff",
+}: {
+  size?: number;
+  primary?: string;
+  secondary?: string;
+}) {
+  const rays = 8;
+  return (
+    <svg aria-hidden="true" width={size} height={size} viewBox="0 0 400 400" fill="none" style={{ display: "block" }}>
+      <g transform="translate(200 200)">
+        {Array.from({ length: rays }).map((_, i) => (
+          <g key={`r-${i}`} transform={`rotate(${(i * 360) / rays})`}>
+            <line x1="0" y1="-160" x2="0" y2="-95" stroke={primary} strokeWidth="2" opacity="0.65" strokeLinecap="round" />
+            <path d="M-7,-160 L0,-178 L7,-160 Z" fill={primary} opacity="0.75" />
+          </g>
+        ))}
+        {Array.from({ length: rays }).map((_, i) => (
+          <line
+            key={`s-${i}`}
+            transform={`rotate(${(i * 360) / rays + 22.5})`}
+            x1="0"
+            y1="-130"
+            x2="0"
+            y2="-95"
+            stroke={secondary}
+            strokeWidth="1.5"
+            opacity="0.45"
+            strokeLinecap="round"
+          />
+        ))}
+        <circle r="70" stroke={primary} strokeWidth="2" fill="none" opacity="0.65" />
+        <circle r="50" stroke={secondary} strokeWidth="1" fill="none" opacity="0.5" />
+        <circle r="30" fill={primary} opacity="0.32" />
+        <circle r="6" fill={secondary} opacity="0.9" />
+      </g>
+    </svg>
+  );
+}
+
+export function InuitChevronStack({
+  width = 420,
+  height = 280,
+  primary = "#ffffff",
+  secondary = "#d8a986",
+}: {
+  width?: number;
+  height?: number;
+  primary?: string;
+  secondary?: string;
+}) {
+  return (
+    <svg aria-hidden="true" width={width} height={height} viewBox="0 0 420 280" fill="none" style={{ display: "block" }}>
+      <path d="M30,260 L210,80 L390,260" stroke={primary} strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.55" />
+      <path d="M65,260 L210,115 L355,260" stroke={secondary} strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.65" />
+      <path d="M100,260 L210,150 L320,260" stroke={primary} strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.5" />
+      <path d="M135,260 L210,185 L285,260" stroke={secondary} strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.45" />
+      <path d="M170,260 L210,220 L250,260" stroke={primary} strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.55" />
+      <circle cx="210" cy="80" r="4" fill={primary} opacity="0.85" />
+      <circle cx="160" cy="130" r="2" fill={secondary} opacity="0.55" />
+      <circle cx="260" cy="130" r="2" fill={secondary} opacity="0.55" />
+    </svg>
+  );
+}
+
+export function InuitStarPattern({
+  size = 400,
+  primary = "#d8a986",
+  secondary = "#ffffff",
+}: {
+  size?: number;
+  primary?: string;
+  secondary?: string;
+}) {
+  return (
+    <svg aria-hidden="true" width={size} height={size} viewBox="0 0 400 400" fill="none" style={{ display: "block" }}>
+      <g transform="translate(200 200)">
+        <polygon points="0,-160 60,0 0,160 -60,0" fill={primary} opacity="0.35" />
+        <polygon points="-160,0 0,-60 160,0 0,60" fill={secondary} opacity="0.32" />
+        <polygon points="0,-85 30,0 0,85 -30,0" fill={primary} opacity="0.55" />
+        <polygon points="-85,0 0,-30 85,0 0,30" fill={secondary} opacity="0.5" />
+        <polygon points="0,-160 -12,-178 0,-196 12,-178" fill={primary} opacity="0.7" />
+        <polygon points="0,160 12,178 0,196 -12,178" fill={primary} opacity="0.7" />
+        <polygon points="-160,0 -178,-12 -196,0 -178,12" fill={primary} opacity="0.7" />
+        <polygon points="160,0 178,12 196,0 178,-12" fill={primary} opacity="0.7" />
+        <circle r="7" fill={secondary} opacity="0.9" />
+      </g>
+    </svg>
+  );
+}
+
+export function InuitArrowField({
+  width = 440,
+  height = 240,
+  primary = "#ffffff",
+  secondary = "#d8a986",
+}: {
+  width?: number;
+  height?: number;
+  primary?: string;
+  secondary?: string;
+}) {
+  const cols = 8;
+  const rows = 4;
+  const sx = 50;
+  const sy = 52;
+  const tris: React.ReactElement[] = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const offset = r % 2 === 0 ? 0 : sx / 2;
+      const cx = 28 + c * sx + offset;
+      const cy = 28 + r * sy;
+      const isAlt = (r + c) % 2 === 0;
+      const color = isAlt ? primary : secondary;
+      const opacity = isAlt ? 0.5 : 0.6;
+      tris.push(
+        <path
+          key={`${r}-${c}`}
+          d={`M${cx - 7},${cy + 6} L${cx},${cy - 7} L${cx + 7},${cy + 6} Z`}
+          fill={color}
+          opacity={opacity}
+        />
+      );
+    }
+  }
+  return (
+    <svg aria-hidden="true" width={width} height={height} viewBox="0 0 440 240" fill="none" style={{ display: "block" }}>
+      {tris}
+    </svg>
+  );
+}
+
+// Section-wide Inuit textile pattern + soft white wash (0.1 / 0.75).
+// Drop into any `relative overflow-hidden` section as the first child;
+// then put real content in a `relative z-10` wrapper.
+export function InuitSectionBg({
+  patternOpacity = 0.1,
+  washOpacity = 0.75,
+}: {
+  patternOpacity?: number;
+  washOpacity?: number;
+}) {
+  return (
+    <>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/inuit-pattern-bg.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: patternOpacity,
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{ backgroundColor: `rgba(255,255,255,${washOpacity})` }}
+      />
+    </>
+  );
+}
+
+// Drop-in animated pair of Inuit motifs for teal sections.
+// `variant` cycles three distinct combos; defaults to "diamond".
+export function InuitTealAccents({
+  variant = "diamond",
+}: {
+  variant?: "diamond" | "star" | "sun";
+}) {
+  if (variant === "star") {
+    return (
+      <>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ top: 30, right: -80, zIndex: 0, opacity: 0.38 }}
+          animate={{ rotate: [0, 4, 0] }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <InuitStarPattern size={420} primary="#d8a986" secondary="#ffffff" />
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ bottom: 20, left: 10, zIndex: 0, opacity: 0.55 }}
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <InuitArrowField width={440} height={240} primary="#ffffff" secondary="#d8a986" />
+        </motion.div>
+      </>
+    );
+  }
+  if (variant === "sun") {
+    return (
+      <>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ top: 30, right: -90, zIndex: 0, opacity: 0.38 }}
+          animate={{ rotate: [0, 10, 0] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <InuitSunburst size={420} primary="#d8a986" secondary="#ffffff" />
+        </motion.div>
+        <motion.div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ bottom: 20, left: 20, zIndex: 0, opacity: 0.55 }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <InuitChevronStack width={420} height={280} primary="#ffffff" secondary="#d8a986" />
+        </motion.div>
+      </>
+    );
+  }
+  // diamond (default)
+  return (
+    <>
+      <motion.div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ top: 30, right: -90, zIndex: 0, opacity: 0.35 }}
+        animate={{ rotate: [0, 6, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <InuitDiamondCluster size={420} primary="#d8a986" secondary="#ffffff" />
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ bottom: 30, left: 20, zIndex: 0, opacity: 0.55 }}
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <InuitWaveLines width={420} height={220} primary="#ffffff" secondary="#d8a986" />
+      </motion.div>
+    </>
+  );
+}
+
 export function InlineLink({
   href,
   children,
@@ -701,11 +1179,13 @@ export function PageHero({
   title,
   subtitle,
   bgImage,
+  bgPosition = "center",
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string;
   bgImage: string;
+  bgPosition?: string;
 }) {
   return (
     <section
@@ -717,7 +1197,12 @@ export function PageHero({
       }}
     >
       <div className="absolute inset-0">
-        <img src={bgImage} alt="" className="w-full h-full object-cover" />
+        <img
+          src={bgImage}
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ objectPosition: bgPosition }}
+        />
         <div className="absolute inset-0 bg-[#0f0f0f]/65" />
       </div>
 

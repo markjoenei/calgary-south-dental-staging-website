@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "motion/react";
-import { PATIENTS_NAV, SERVICES_NAV } from "./services-data";
+import {
+  SiteHeader,
+  InuitDiamondCluster,
+  InuitWaveLines,
+  InuitSunburst,
+  InuitChevronStack,
+  InuitStarPattern,
+  InuitArrowField,
+} from "./components/SiteChrome";
 
 // ============================================================
 // SHARED HELPERS
@@ -68,7 +76,7 @@ function GoldStars() {
 
 function GoogleRatingRow({ textColor = "white" }: { textColor?: string }) {
   return (
-    <div className="flex items-center justify-center gap-3 mt-5">
+    <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-5">
       <GoogleGLogo />
       <div className="flex items-center gap-0.5">
         <StarIcon />
@@ -78,12 +86,13 @@ function GoogleRatingRow({ textColor = "white" }: { textColor?: string }) {
         <StarIcon />
       </div>
       <span
+        className="text-center"
         style={{
           fontFamily: "var(--font-poppins), sans-serif",
-          fontSize: "16px",
+          fontSize: "clamp(12px, 1.6vw, 16px)",
           fontWeight: 400,
           color: textColor,
-          letterSpacing: "2px",
+          letterSpacing: "1.5px",
           textTransform: "uppercase",
         }}
       >
@@ -148,6 +157,23 @@ function InstagramIcon({ size = 22 }: { size?: number }) {
   );
 }
 
+function FacebookIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
 // ============================================================
 // TESTIMONIAL DATA
 // ============================================================
@@ -201,7 +227,7 @@ function ServiceCard({
   return (
     <a
       href={href}
-      className="group relative w-[294px] h-[440px] overflow-hidden flex-shrink-0 block"
+      className="group relative w-full max-w-[294px] h-[380px] sm:h-[440px] overflow-hidden flex-shrink-0 block"
     >
       <img
         src={image}
@@ -229,9 +255,9 @@ function ServiceCard({
           className="text-white uppercase mb-2 transition-transform duration-500 ease-out group-hover:-translate-y-1"
           style={{
             fontFamily: "var(--font-montserrat), sans-serif",
-            fontSize: "32px",
+            fontSize: "clamp(22px, 4.5vw, 32px)",
             fontWeight: 600,
-            lineHeight: "44.8px",
+            lineHeight: 1.2,
             letterSpacing: "0.64px",
           }}
         >
@@ -353,20 +379,6 @@ function InlineLink({
     </a>
   );
 }
-
-// Nav items that get a chevron (dropdown indicator)
-const NAV_ITEMS_WITH_CHEVRON = [
-  "ABOUT US",
-  "DENTAL SERVICES",
-  "FOR PATIENTS",
-];
-
-// About Us dropdown items — link to the real pages
-const ABOUT_SUBMENU = [
-  { label: "Meet Our Team", href: "/meet-our-team" },
-  { label: "Office Tour", href: "/meet-our-team#office-tour" },
-  { label: "Why Us", href: "/why-us" },
-];
 
 // ============================================================
 // DECORATIVE VECTOR ART — global accents across home page
@@ -548,100 +560,13 @@ function SmileArc({
 }
 
 // ============================================================
-// HOME NAV SUB-ITEM — supports an optional sub-flyout
-// ============================================================
-
-function HomeNavSubItem({
-  sub,
-}: {
-  sub: { label: string; href: string; submenu?: { label: string; href: string }[] };
-}) {
-  const [flyoutOpen, setFlyoutOpen] = useState(false);
-  const hasFlyout = !!sub.submenu && sub.submenu.length > 0;
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => hasFlyout && setFlyoutOpen(true)}
-      onMouseLeave={() => hasFlyout && setFlyoutOpen(false)}
-    >
-      <a
-        href={sub.href}
-        className="flex items-center justify-between px-5 py-2.5 text-white hover:text-[#279DB9] hover:bg-white/5 transition-colors duration-200"
-        style={{
-          fontFamily: "var(--font-poppins), sans-serif",
-          fontSize: "14px",
-          fontWeight: 500,
-          letterSpacing: "0.5px",
-        }}
-      >
-        <span>{sub.label}</span>
-        {hasFlyout && (
-          <span style={{ display: "inline-flex", marginLeft: "10px", opacity: 0.7 }}>
-            <svg width="8" height="8" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M9 6l6 6-6 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-        )}
-      </a>
-
-      {hasFlyout && (
-        <AnimatePresence>
-          {flyoutOpen && (
-            <motion.div
-              initial={{ opacity: 0, x: -4 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -4 }}
-              transition={{ duration: 0.16, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute left-full top-0 bg-[#0f0f0f] border border-[#279DB9]/30 shadow-2xl"
-              style={{
-                minWidth: "280px",
-                marginLeft: "4px",
-                borderRadius: "6px",
-                padding: "10px 0",
-              }}
-            >
-              {sub.submenu!.map((leaf) => (
-                <a
-                  key={leaf.label}
-                  href={leaf.href}
-                  className="block px-5 py-2.5 text-white hover:text-[#279DB9] hover:bg-white/5 transition-colors duration-200"
-                  style={{
-                    fontFamily: "var(--font-poppins), sans-serif",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  {leaf.label}
-                </a>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      )}
-    </div>
-  );
-}
-
-// ============================================================
 // MAIN PAGE COMPONENT
 // ============================================================
 
 export default function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [showVerticalLabel, setShowVerticalLabel] = useState(false);
-  const [headerScrolled, setHeaderScrolled] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
 
   const { scrollY } = useScroll();
   const rawY = useTransform(scrollY, (v) => v * -0.08);
@@ -651,7 +576,6 @@ export default function HomePage() {
     function handleScroll() {
       const sectionTwo = document.getElementById("section-two");
       const testimonials = document.getElementById("section-testimonials");
-      setHeaderScrolled(window.scrollY > 80);
       if (!sectionTwo || !testimonials) return;
 
       const startTrigger = sectionTwo.getBoundingClientRect().top;
@@ -670,8 +594,18 @@ export default function HomePage() {
     };
   }, []);
 
-  const visibleCount = 3;
-  const maxIndex = testimonials.length - visibleCount;
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  useEffect(() => {
+    function updateVisibleCount() {
+      setVisibleCount(window.innerWidth < 768 ? 1 : 3);
+    }
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
+
+  const maxIndex = Math.max(0, testimonials.length - visibleCount);
 
   function prevTestimonial() {
     if (testimonialIndex > 0) {
@@ -687,9 +621,10 @@ export default function HomePage() {
     }
   }
 
+  const safeIndex = Math.min(testimonialIndex, maxIndex);
   const visibleTestimonials = testimonials.slice(
-    testimonialIndex,
-    testimonialIndex + visibleCount
+    safeIndex,
+    safeIndex + visibleCount
   );
 
   return (
@@ -697,410 +632,7 @@ export default function HomePage() {
       className="min-h-screen bg-white text-[#141f2e]"
       style={{ fontFamily: "var(--font-poppins), sans-serif", overflowX: "clip" }}
     >
-      {/* ============================================================
-          HEADER — Modern sticky two-row header with scroll collapse
-          ============================================================ */}
-      <header
-        className="fixed top-0 left-0 right-0 z-50 w-full"
-        style={{
-          transition: "box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-          boxShadow: headerScrolled
-            ? "0 4px 20px -8px rgba(0,0,0,0.25)"
-            : "0 0 0 0 rgba(0,0,0,0)",
-        }}
-      >
-        {/* ROW 1 — Top Utility Bar — collapses on scroll */}
-        <motion.div
-          className="w-full overflow-hidden"
-          initial={false}
-          animate={{
-            height: headerScrolled ? 0 : 56,
-            opacity: headerScrolled ? 0 : 1,
-          }}
-          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          style={{ backgroundColor: "#279DB9" }}
-        >
-          <div
-            className="w-full flex items-center justify-between"
-            style={{
-              height: "46px",
-              maxWidth: "1825px",
-              margin: "0 auto",
-              paddingTop: "5px",
-              paddingBottom: "5px",
-              paddingLeft: "80px",
-              paddingRight: "80px",
-            }}
-          >
-            {/* Instagram icon */}
-            <a
-              href="https://www.instagram.com/calgarysouthdentalca"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="flex items-center text-white transition-transform duration-300 hover:scale-110"
-            >
-              <InstagramIcon size={20} />
-            </a>
-
-            {/* Address — hidden on mobile */}
-            <p
-              className="hidden md:flex items-center"
-              style={{
-                fontFamily: "var(--font-montserrat), sans-serif",
-                fontSize: "13px",
-                fontWeight: 600,
-                lineHeight: "13px",
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-                color: "#ffffff",
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "6px", verticalAlign: "middle" }} aria-hidden="true">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z" />
-              </svg>
-              60 Sunpark Plaza SE, Unit 120, Calgary, AB T2X 3Y2
-            </p>
-
-            {/* Right side — Book Online Here + mobile hamburger */}
-            <div className="flex items-center gap-3">
-              <a
-                href="/contact-us"
-                className="hidden md:inline-flex items-center justify-center text-white transition-all duration-300 hover:text-white"
-                style={{
-                  fontFamily: "var(--font-poppins), sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  letterSpacing: "1px",
-                  textTransform: "uppercase",
-                  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-                }}
-              >
-                Book Online Here
-                <span
-                  className="ml-2 inline-flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1"
-                  style={{
-                    width: "22px",
-                    height: "22px",
-                    borderRadius: "50%",
-                    backgroundColor: "#ffffff",
-                    color: "#279DB9",
-                    fontSize: "12px",
-                  }}
-                >
-                  &#8594;
-                </span>
-              </a>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ROW 2 — Main Nav — black band with glass effect on scroll */}
-        <div
-          className="w-full"
-          style={{
-            backgroundColor: headerScrolled ? "rgba(0,0,0,0.85)" : "#000000",
-            backdropFilter: headerScrolled ? "blur(12px)" : "none",
-            WebkitBackdropFilter: headerScrolled ? "blur(12px)" : "none",
-            paddingTop: "10px",
-            paddingBottom: "10px",
-            transition: "background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          <div
-            className="w-full flex items-center justify-between"
-            style={{
-              maxWidth: "1825px",
-              margin: "0 auto",
-              paddingLeft: "80px",
-              paddingRight: "80px",
-            }}
-          >
-            {/* Logo */}
-            <motion.a
-              href="/"
-              className="flex-shrink-0"
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <motion.img
-                src="/images/calgary-south-dental-logo.png"
-                alt="Calgary South Dental"
-                animate={{ height: headerScrolled ? 44 : 52.5 }}
-                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                style={{ width: "auto", maxWidth: "200px", objectFit: "contain" }}
-              />
-            </motion.a>
-
-            {/* Desktop nav — animated underline + rotating chevron + dropdowns */}
-            <nav className="hidden md:flex items-center gap-8">
-              {["HOME", "ABOUT US", "DENTAL SERVICES", "FOR PATIENTS", "CONTACT US"].map(
-                (item) => {
-                  const submenu =
-                    item === "ABOUT US"
-                      ? ABOUT_SUBMENU
-                      : item === "DENTAL SERVICES"
-                      ? SERVICES_NAV
-                      : item === "FOR PATIENTS"
-                      ? PATIENTS_NAV
-                      : null;
-                  const hasSubmenu = !!submenu;
-                  const isOpen = openSubmenu === item;
-                  const itemHref =
-                    item === "HOME"
-                      ? "/"
-                      : item === "CONTACT US"
-                      ? "/contact-us"
-                      : item === "FOR PATIENTS"
-                      ? "/for-patients"
-                      : "#";
-                  return (
-                    <div
-                      key={item}
-                      className="relative"
-                      onMouseEnter={() => hasSubmenu && setOpenSubmenu(item)}
-                      onMouseLeave={() => hasSubmenu && setOpenSubmenu(null)}
-                    >
-                      <a
-                        href={itemHref}
-                        className="group relative flex items-center gap-1 text-white uppercase"
-                        style={{
-                          fontFamily: "var(--font-poppins), sans-serif",
-                          fontSize: "14px",
-                          fontWeight: 500,
-                          letterSpacing: "1.2px",
-                          whiteSpace: "nowrap",
-                          padding: "8px 0",
-                        }}
-                      >
-                        <span className="relative inline-flex items-center transition-colors duration-300 group-hover:text-[#279DB9]">
-                          {item}
-                          {hasSubmenu && (
-                            <span
-                              className="ml-1 inline-flex transition-transform duration-300"
-                              style={{
-                                transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                              }}
-                            >
-                              <ChevronDown />
-                            </span>
-                          )}
-                        </span>
-                        <span
-                          className="absolute left-0 right-0 transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"
-                          style={{
-                            bottom: "0",
-                            height: "2px",
-                            backgroundColor: "#279DB9",
-                            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-                          }}
-                        />
-                      </a>
-
-                      {hasSubmenu && (
-                        <AnimatePresence>
-                          {isOpen && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 6 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 6 }}
-                              transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-                              className="absolute left-0 top-full bg-[#0f0f0f] border border-[#279DB9]/30 shadow-2xl"
-                              style={{
-                                minWidth: "260px",
-                                marginTop: "4px",
-                                borderRadius: "6px",
-                                padding: "10px 0",
-                              }}
-                            >
-                              {submenu!.map((sub) => (
-                                <HomeNavSubItem key={sub.label} sub={sub} />
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      )}
-                    </div>
-                  );
-                }
-              )}
-            </nav>
-
-            {/* Right side actions — phone + Book Now CTA + mobile hamburger */}
-            <div className="flex items-center gap-3">
-              {/* Phone button — teal, pill-shaped on desktop */}
-              <a
-                href="tel:4039841616"
-                className="hidden md:inline-flex items-center justify-center gap-2 px-5 border-2 border-[#279DB9] bg-[#279DB9] text-white transition-all duration-300 hover:bg-transparent hover:text-[#279DB9]"
-                style={{
-                  height: "40px",
-                  borderRadius: "999px",
-                  fontFamily: "var(--font-poppins), sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  letterSpacing: "0.5px",
-                  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <PhoneIcon />
-                403-984-1616
-              </a>
-
-              {/* Mobile hamburger — animated bars */}
-              <button
-                className="md:hidden flex flex-col gap-[5px] p-2"
-                onClick={() => setMobileMenuOpen(true)}
-                aria-label="Open menu"
-              >
-                <span className="block w-6 h-[2px] bg-white transition-transform" />
-                <span className="block w-6 h-[2px] bg-white transition-transform" />
-                <span className="block w-6 h-[2px] bg-white transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* ============================================================
-          MOBILE MENU OVERLAY
-          ============================================================ */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-[#171717] flex flex-col"
-          >
-            <div className="flex justify-between items-center p-6">
-              <img
-                src="/images/calgary-south-dental-logo.png"
-                alt="Calgary South Dental"
-                style={{ width: "160px", objectFit: "contain" }}
-              />
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white text-3xl leading-none"
-                aria-label="Close menu"
-              >
-                ×
-              </button>
-            </div>
-            <nav className="flex flex-col items-center gap-6 mt-12 w-full px-6">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "#", submenu: ABOUT_SUBMENU },
-                { label: "Dental Services", href: "#", submenu: SERVICES_NAV },
-                { label: "For Patients", href: "/for-patients", submenu: PATIENTS_NAV },
-                { label: "Contact Us", href: "/contact-us" },
-              ].map((item) => {
-                const hasSubmenu = !!item.submenu;
-                const isOpen = mobileSubmenuOpen === item.label;
-                return (
-                  <div key={item.label} className="w-full text-center">
-                    {hasSubmenu ? (
-                      <button
-                        onClick={() => setMobileSubmenuOpen(isOpen ? null : item.label)}
-                        className="inline-flex items-center gap-2 text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
-                        style={{
-                          fontFamily: "var(--font-poppins), sans-serif",
-                          fontSize: "18px",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {item.label}
-                        <span
-                          style={{
-                            display: "inline-flex",
-                            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                            transition: "transform 0.2s",
-                          }}
-                        >
-                          <ChevronDown />
-                        </span>
-                      </button>
-                    ) : (
-                      <a
-                        href={item.href}
-                        className="inline-block text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
-                        style={{
-                          fontFamily: "var(--font-poppins), sans-serif",
-                          fontSize: "18px",
-                          fontWeight: 600,
-                        }}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {item.label}
-                      </a>
-                    )}
-                    {hasSubmenu && isOpen && (
-                      <div className="mt-3 flex flex-col items-center gap-3">
-                        {item.submenu!.map((sub) => (
-                          <a
-                            key={sub.label}
-                            href={sub.href}
-                            className="text-white/80 hover:text-[#279DB9] transition-colors"
-                            style={{
-                              fontFamily: "var(--font-poppins), sans-serif",
-                              fontSize: "15px",
-                              letterSpacing: "0.5px",
-                            }}
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {sub.label}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-              <a
-                href="tel:4039841616"
-                className="text-white hover:text-[#279DB9] transition-colors duration-300 uppercase tracking-[3px]"
-                style={{
-                  fontFamily: "var(--font-poppins), sans-serif",
-                  fontSize: "18px",
-                  fontWeight: 600,
-                }}
-              >
-                403-984-1616
-              </a>
-              <a
-                href="https://www.instagram.com/calgarysouthdentalca"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white hover:text-[#279DB9] transition-colors duration-300"
-                style={{
-                  fontFamily: "var(--font-poppins), sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 400,
-                }}
-              >
-                @calgarysouthdentalca
-              </a>
-              <a
-                href="/contact-us"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-4 flex items-center justify-center px-8 bg-[#279DB9] border-2 border-[#279DB9] text-white transition-all duration-300 hover:bg-transparent"
-                style={{
-                  height: "46px",
-                  borderRadius: "999px",
-                  fontFamily: "var(--font-poppins), sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 500,
-                  letterSpacing: "1px",
-                  textTransform: "uppercase",
-                }}
-              >
-                Book Now
-              </a>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <SiteHeader />
 
       {/* ============================================================
           SECTION 0 — HERO (753px, video background) — modernized
@@ -1167,9 +699,9 @@ export default function HomePage() {
             className="text-white uppercase mt-3"
             style={{
               fontFamily: "var(--font-montserrat), sans-serif",
-              fontSize: "20px",
+              fontSize: "clamp(14px, 2.2vw, 20px)",
               fontWeight: 400,
-              lineHeight: "28px",
+              lineHeight: 1.4,
             }}
           >
             Your Trusted Family Dentist in SE Calgary &mdash; Sunpark Plaza
@@ -1180,9 +712,10 @@ export default function HomePage() {
             className="text-white uppercase mt-2"
             style={{
               fontFamily: "var(--font-montserrat), sans-serif",
-              fontSize: "20px",
+              fontSize: "clamp(13px, 2vw, 20px)",
               fontWeight: 400,
-              lineHeight: "28px",
+              lineHeight: 1.4,
+              maxWidth: "880px",
             }}
           >
             Gentle, state-of-the-art family, cosmetic &amp; emergency care &mdash; serving Sundance, Midnapore, Shawnessy and all of SE Calgary. New patients always welcome.
@@ -1191,14 +724,6 @@ export default function HomePage() {
           <motion.div variants={fadeUp}>
             <GoogleRatingRow textColor="white" />
           </motion.div>
-
-          <motion.img
-            variants={fadeUp}
-            src="/images/hero-icon.png"
-            alt=""
-            className="mt-6"
-            style={{ width: "46px", height: "65px" }}
-          />
 
           <motion.a
             variants={fadeUp}
@@ -1276,7 +801,7 @@ export default function HomePage() {
                 fontFamily: "var(--font-montserrat), sans-serif",
                 fontSize: "clamp(24px, 3.5vw, 40px)",
                 fontWeight: 600,
-                lineHeight: "52px",
+                lineHeight: 1.25,
                 letterSpacing: "1.6px",
               }}
             >
@@ -1323,16 +848,35 @@ export default function HomePage() {
           SECTION — OUR SERVICES (moved from cosmetic row)
           ============================================================ */}
       <section
-        className="w-full bg-white"
+        className="relative w-full bg-white overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
+        {/* Inuit geometric textile pattern — 10% opacity backdrop */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/inuit-pattern-bg.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.1,
+          }}
+        />
+        {/* Soft white wash to lift the pattern back toward bg */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{ backgroundColor: "rgba(255,255,255,0.75)" }}
+        />
+
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="text-center max-w-[860px] mx-auto"
-          style={{ paddingLeft: "24px", paddingRight: "24px" }}
+          className="relative text-center max-w-[860px] mx-auto"
+          style={{ paddingLeft: "24px", paddingRight: "24px", zIndex: 1 }}
         >
           <Eyebrow>WHAT WE OFFER</Eyebrow>
           <h2
@@ -1369,7 +913,8 @@ export default function HomePage() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="flex flex-wrap justify-center mt-16"
+          className="relative flex flex-wrap justify-center gap-4 sm:gap-0 mt-16 px-5 sm:px-0"
+          style={{ zIndex: 1 }}
         >
           <ServiceCard
             image="/images/teeth-whitening.webp"
@@ -1440,24 +985,24 @@ export default function HomePage() {
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
-        {/* Decorative vector accents */}
+        {/* Inuit-inspired decorative accents — star + arrow-field */}
         <motion.div
           aria-hidden="true"
           className="absolute pointer-events-none"
-          style={{ top: 40, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 8, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: 30, right: -80, zIndex: 0, opacity: 0.38 }}
+          animate={{ rotate: [0, 4, 0] }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
         >
-          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
+          <InuitStarPattern size={420} primary="#d8a986" secondary="#ffffff" />
         </motion.div>
         <motion.div
           aria-hidden="true"
           className="absolute pointer-events-none"
-          style={{ bottom: 30, left: 30, zIndex: 0 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          style={{ bottom: 20, left: 10, zIndex: 0, opacity: 0.55 }}
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
+          <InuitArrowField width={440} height={240} primary="#ffffff" secondary="#d8a986" />
         </motion.div>
 
         <div
@@ -1629,7 +1174,7 @@ export default function HomePage() {
                   className="absolute right-6 top-2 select-none transition-colors duration-500 group-hover:text-[#279DB9]/30"
                   style={{
                     fontFamily: "var(--font-montserrat), sans-serif",
-                    fontSize: "110px",
+                    fontSize: "clamp(72px, 12vw, 110px)",
                     fontWeight: 800,
                     lineHeight: 1,
                     color: "rgba(255,255,255,0.04)",
@@ -1708,24 +1253,24 @@ export default function HomePage() {
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "120px", paddingBottom: "120px" }}
       >
-        {/* Decorative vector accents */}
+        {/* Inuit-inspired decorative accents — sunburst + chevron stack */}
         <motion.div
           aria-hidden="true"
           className="absolute pointer-events-none"
-          style={{ top: 40, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 8, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: 30, right: -90, zIndex: 0, opacity: 0.38 }}
+          animate={{ rotate: [0, 10, 0] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
         >
-          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
+          <InuitSunburst size={420} primary="#d8a986" secondary="#ffffff" />
         </motion.div>
         <motion.div
           aria-hidden="true"
           className="absolute pointer-events-none"
-          style={{ bottom: 30, left: 30, zIndex: 0 }}
+          style={{ bottom: 20, left: 20, zIndex: 0, opacity: 0.55 }}
           animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         >
-          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
+          <InuitChevronStack width={420} height={280} primary="#ffffff" secondary="#d8a986" />
         </motion.div>
 
         <div
@@ -1794,15 +1339,15 @@ export default function HomePage() {
             className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
           >
             {[
-              { prefix: "I don't like my", keyword: "Smile", href: "#" },
-              { prefix: "I'm missing some", keyword: "Teeth", href: "#" },
-              { prefix: "My tooth is", keyword: "Broken", href: "#" },
-              { prefix: "My gums are", keyword: "Bleeding", href: "https://calgarysouthdental.ca/gum-disease-bad-breath/" },
-              { prefix: "My teeth are", keyword: "Crooked", href: "#" },
-              { prefix: "My dentures", keyword: "Fall Out", href: "https://calgarysouthdental.ca/restorative-dentistry/dental-dentures-se-calgary/" },
-              { prefix: "My teeth are", keyword: "Discoloured", href: "#" },
-              { prefix: "I need a", keyword: "Family Dentist", href: "#" },
-              { prefix: "Dentists make me", keyword: "Nervous", href: "#" },
+              { prefix: "I don't like my", keyword: "Smile", href: "/cosmetic-care/porcelain-veneers-se-calgary" },
+              { prefix: "I'm missing some", keyword: "Teeth", href: "/restorative-dentistry/dental-crowns-bridges-calgary-se" },
+              { prefix: "My tooth is", keyword: "Broken", href: "/restorative-dentistry/dental-crowns-bridges-calgary-se" },
+              { prefix: "My gums are", keyword: "Bleeding", href: "/gum-disease-bad-breath/periodontal-gum-care-se-calgary" },
+              { prefix: "My teeth are", keyword: "Crooked", href: "/orthodontics/invisalign-calgary-south-east" },
+              { prefix: "My dentures", keyword: "Fall Out", href: "/restorative-dentistry/dental-dentures-se-calgary" },
+              { prefix: "My teeth are", keyword: "Discoloured", href: "/cosmetic-care/teeth-whitening-se-calgary" },
+              { prefix: "I need a", keyword: "Family Dentist", href: "/general-dentistry/dental-cleanings-se-calgary" },
+              { prefix: "Dentists make me", keyword: "Nervous", href: "/additional-care/sedation-dentistry-se-calgary" },
             ].map((c) => (
               <motion.a
                 key={c.keyword}
@@ -1844,13 +1389,12 @@ export default function HomePage() {
                   </p>
                 </div>
                 <span
-                  className="flex-shrink-0 inline-flex items-center justify-center transition-all duration-500 group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#279DB9]"
+                  className="flex-shrink-0 inline-flex items-center justify-center text-white transition-all duration-500 group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#279DB9] group-hover:border-white"
                   style={{
                     width: "36px",
                     height: "36px",
                     borderRadius: "999px",
                     border: "1.5px solid rgba(255,255,255,0.55)",
-                    color: "#ffffff",
                     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
                   }}
                   aria-hidden="true"
@@ -1906,16 +1450,35 @@ export default function HomePage() {
           SECTION 7 — DIRECT BILLING (insurance logo marquee)
           ============================================================ */}
       <section
-        className="w-full bg-white overflow-hidden"
+        className="relative w-full bg-white overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
+        {/* Inuit geometric textile pattern — 10% opacity backdrop */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/inuit-pattern-bg.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.1,
+          }}
+        />
+        {/* Soft white wash to lift the pattern back toward bg */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{ backgroundColor: "rgba(255,255,255,0.75)" }}
+        />
+
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="max-w-[1440px] mx-auto text-center"
-          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)" }}
+          className="relative max-w-[1440px] mx-auto text-center"
+          style={{ paddingLeft: "clamp(20px, 5vw, 80px)", paddingRight: "clamp(20px, 5vw, 80px)", zIndex: 1 }}
         >
           <Eyebrow>Dentist in South Calgary</Eyebrow>
           <h2
@@ -1951,6 +1514,7 @@ export default function HomePage() {
               "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
             WebkitMaskImage:
               "linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%)",
+            zIndex: 1,
           }}
         >
           <motion.div
@@ -1992,24 +1556,24 @@ export default function HomePage() {
         className="w-full bg-[#279DB9] relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
-        {/* Decorative vector accents */}
+        {/* Inuit-inspired decorative accents */}
         <motion.div
           aria-hidden="true"
           className="absolute pointer-events-none"
-          style={{ top: 40, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 8, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: 30, right: -90, zIndex: 0, opacity: 0.35 }}
+          animate={{ rotate: [0, 6, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         >
-          <OrganicBlob color="#d8a986" size={460} opacity={0.18} />
+          <InuitDiamondCluster size={420} primary="#d8a986" secondary="#ffffff" />
         </motion.div>
         <motion.div
           aria-hidden="true"
           className="absolute pointer-events-none"
-          style={{ bottom: 30, left: 30, zIndex: 0 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          style={{ bottom: 30, left: 20, zIndex: 0, opacity: 0.55 }}
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         >
-          <DotGrid rows={5} cols={8} color="#ffffff" opacity={0.35} />
+          <InuitWaveLines width={420} height={220} primary="#ffffff" secondary="#d8a986" />
         </motion.div>
 
         <div
@@ -2026,9 +1590,9 @@ export default function HomePage() {
           >
             <Eyebrow>Government Coverage</Eyebrow>
             <div className="flex items-start gap-4">
-              {/* Rotated vertical label */}
+              {/* Rotated vertical label — hidden on mobile to save width */}
               <div
-                className="flex-shrink-0 mt-2"
+                className="hidden md:block flex-shrink-0 mt-2"
                 style={{
                   writingMode: "vertical-rl",
                   transform: "rotate(180deg)",
@@ -2113,25 +1677,25 @@ export default function HomePage() {
         className="w-full bg-white relative overflow-hidden"
         style={{ paddingTop: "86.4px", paddingBottom: "86.4px" }}
       >
-        {/* Decorative vector accents */}
-        <motion.div
+        {/* Inuit geometric textile pattern — 10% opacity backdrop */}
+        <div
           aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ top: -80, right: -80, zIndex: 0 }}
-          animate={{ rotate: [0, 6, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <OrganicBlob color="#279DB9" size={420} opacity={0.08} />
-        </motion.div>
-        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/inuit-pattern-bg.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.1,
+            zIndex: 0,
+          }}
+        />
+        {/* Soft white wash to lift the pattern back toward bg */}
+        <div
           aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{ bottom: 40, left: 40, zIndex: 0 }}
-          animate={{ x: [0, 10, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <SmileArc color="#d8a986" width={260} height={90} opacity={0.45} />
-        </motion.div>
+          className="absolute inset-0 pointer-events-none"
+          style={{ backgroundColor: "rgba(255,255,255,0.75)", zIndex: 0 }}
+        />
 
         <motion.div
           variants={fadeUp}
@@ -2208,13 +1772,12 @@ export default function HomePage() {
                   {visibleTestimonials.map((t, i) => (
                     <div
                       key={i}
-                      className="flex flex-col items-start transition-all duration-500 ease-out hover:-translate-y-2"
+                      className="flex flex-col items-start transition-all duration-500 ease-out hover:-translate-y-2 p-6 sm:p-8"
                       style={{
-                        backgroundColor: i === 1 ? "#d3c6bc" : "rgba(211,198,188,0.35)",
-                        padding: "32px",
+                        backgroundColor: i === 1 ? "#d3c6bc" : (visibleCount === 1 ? "#d3c6bc" : "rgba(211,198,188,0.35)"),
                         borderRadius: "8px",
                         boxShadow:
-                          i === 1
+                          i === 1 || visibleCount === 1
                             ? "0 20px 40px -20px rgba(20,31,46,0.2)"
                             : "0 10px 30px -15px rgba(20,31,46,0.12)",
                       }}
@@ -2252,13 +1815,13 @@ export default function HomePage() {
                       </div>
                       {/* Reviewer name */}
                       <h5
-                        className="text-[#1c1c1c] uppercase"
+                        className="text-[#1c1c1c] uppercase break-words"
                         style={{
                           fontFamily: "var(--font-montserrat), sans-serif",
-                          fontSize: "20px",
+                          fontSize: "clamp(16px, 2.2vw, 20px)",
                           fontWeight: 600,
-                          lineHeight: "28px",
-                          letterSpacing: "6px",
+                          lineHeight: 1.4,
+                          letterSpacing: "3px",
                           marginTop: "12px",
                         }}
                       >
@@ -2291,6 +1854,38 @@ export default function HomePage() {
               <img src="/icons/arrow-right.png" alt="" width={100} height={19} style={{ objectFit: "contain" }} />
             </button>
           </div>
+
+          {/* Mobile arrows — visible below cards on small screens */}
+          <div className="md:hidden flex items-center justify-center gap-10 mt-8">
+            <button
+              aria-label="Previous testimonial"
+              onClick={prevTestimonial}
+              disabled={testimonialIndex === 0}
+              className="transition-opacity duration-300 disabled:opacity-30"
+              style={{
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
+              <img src="/icons/arrow-left.png" alt="" width={70} height={14} style={{ objectFit: "contain" }} />
+            </button>
+            <button
+              aria-label="Next testimonial"
+              onClick={nextTestimonial}
+              disabled={testimonialIndex >= maxIndex}
+              className="transition-opacity duration-300 disabled:opacity-30"
+              style={{
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
+              <img src="/icons/arrow-right.png" alt="" width={70} height={14} style={{ objectFit: "contain" }} />
+            </button>
+          </div>
         </motion.div>
       </section>
 
@@ -2317,10 +1912,9 @@ export default function HomePage() {
             <iframe
               src="https://www.google.com/maps?q=60+Sunpark+Plaza+SE+Unit+120,+Calgary,+AB+T2X+3Y2&output=embed"
               title="Calgary South Dental location"
+              className="w-full md:w-[690px] h-[320px] sm:h-[420px] md:h-[600px]"
               style={{
                 border: 0,
-                width: "690px",
-                height: "600px",
                 maxWidth: "100%",
                 borderRadius: "8px",
                 boxShadow: "0 20px 60px -20px rgba(20,31,46,0.25)",
@@ -2379,7 +1973,7 @@ export default function HomePage() {
                   Find Us
                 </p>
                 <a
-                  href="https://www.google.com/maps/dir//Calgary+South+Dental,+60+Sunpark+Plaza+SE+Unit+120,+Calgary,+AB+T2X+3Y2"
+                  href="https://www.google.com/maps/place/Calgary+South+Dental/@50.9696866,-114.0468825,21901m/data=!3m1!1e3!4m6!3m5!1s0x53717788900e409b:0x8cd7b1c14e176e0a!8m2!3d50.901242!4d-114.0558708!16s%2Fg%2F11w4h015gp?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white underline"
@@ -2390,7 +1984,7 @@ export default function HomePage() {
                     lineHeight: "27.2px",
                   }}
                 >
-                  60 Sunpark Plaza SE, Unit 120, Calgary, AB T2X 3Y2
+                  60 Sunpark Plaza SE Unit 120 Calgary, AB T2X 3Y2
                 </a>
               </div>
 
@@ -2447,9 +2041,49 @@ export default function HomePage() {
                   <p>Fri: 8:30am &ndash; 3pm</p>
                   <p>Sat - Sun: Closed</p>
                 </div>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <a
+                    href="https://www.google.com/maps/place/Calgary+South+Dental/@50.9696866,-114.0468825,21901m/data=!3m1!1e3!4m6!3m5!1s0x53717788900e409b:0x8cd7b1c14e176e0a!8m2!3d50.901242!4d-114.0558708!16s%2Fg%2F11w4h015gp?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-5 bg-white text-[#279DB9] border-2 border-white transition-all duration-300 hover:bg-transparent hover:text-white hover:scale-[1.03]"
+                    style={{
+                      height: "40px",
+                      borderRadius: "999px",
+                      fontFamily: "var(--font-poppins), sans-serif",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      letterSpacing: "1px",
+                      textTransform: "uppercase",
+                      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Get Directions
+                  </a>
+                  <a
+                    href="https://www.google.com/maps/place/Calgary+South+Dental/@50.901242,-114.0558708,17z/data=!4m8!3m7!1s0x53717788900e409b:0x8cd7b1c14e176e0a!8m2!3d50.901242!4d-114.0558708!9m1!1b1!16s%2Fg%2F11w4h015gp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-5 bg-transparent text-white border-2 border-white transition-all duration-300 hover:bg-white hover:text-[#279DB9] hover:scale-[1.03]"
+                    style={{
+                      height: "40px",
+                      borderRadius: "999px",
+                      fontFamily: "var(--font-poppins), sans-serif",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      letterSpacing: "1px",
+                      textTransform: "uppercase",
+                      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Write a Review
+                  </a>
+                </div>
               </div>
 
-              {/* Follow Us — Fix 13: icon only, no text handle */}
+              {/* Follow Us */}
               <div>
                 <p
                   className="text-white mb-1"
@@ -2462,16 +2096,28 @@ export default function HomePage() {
                 >
                   Follow Us
                 </p>
-                <a
-                  href="https://www.instagram.com/calgarysouthdentalca"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-white hover:text-[#d8a986] transition-colors duration-300"
-                  aria-label="Instagram"
-                  style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
-                >
-                  <InstagramIcon size={22} />
-                </a>
+                <div className="flex items-center gap-4">
+                  <a
+                    href="https://www.instagram.com/calgarysouthdentalca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-white hover:text-[#d8a986] transition-colors duration-300"
+                    aria-label="Instagram"
+                    style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
+                  >
+                    <InstagramIcon size={22} />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/people/Calgary-South-Dental/61561602615233/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-white hover:text-[#d8a986] transition-colors duration-300"
+                    aria-label="Facebook"
+                    style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
+                  >
+                    <FacebookIcon size={22} />
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -2523,17 +2169,29 @@ export default function HomePage() {
                 </a>
               ))}
             </nav>
-            {/* Instagram icon right-aligned */}
-            <a
-              href="https://www.instagram.com/calgarysouthdentalca"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="absolute right-0 text-white hover:text-[#279DB9] transition-colors duration-300"
-              style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
-            >
-              <InstagramIcon size={24} />
-            </a>
+            {/* Social icons right-aligned */}
+            <div className="absolute right-0 flex items-center gap-4">
+              <a
+                href="https://www.instagram.com/calgarysouthdentalca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-white hover:text-[#279DB9] transition-colors duration-300"
+                style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
+              >
+                <InstagramIcon size={24} />
+              </a>
+              <a
+                href="https://www.facebook.com/people/Calgary-South-Dental/61561602615233/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-white hover:text-[#279DB9] transition-colors duration-300"
+                style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
+              >
+                <FacebookIcon size={24} />
+              </a>
+            </div>
           </div>
 
           {/* Horizontal divider */}
